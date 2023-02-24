@@ -3,7 +3,8 @@ from customer import views
 from rest_framework import routers
 
 router = routers.DefaultRouter()
-router.register(r'', views.CustomerViewSet)
+router.register(r'customers', views.CustomerViewSet)
+router.register(r'bankaccount', views.CustomerBankAccountViewSet)
 
 urlpatterns = [
     path('customerviewset/', include(router.urls)),

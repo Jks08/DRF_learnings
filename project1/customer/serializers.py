@@ -24,7 +24,28 @@ class BankMasterSerializer(serializers.ModelSerializer):
 
 class CustomerBankAccountSerializer(serializers.ModelSerializer):
     bank = BankMasterSerializer(read_only=True)
-    customer = CustomerSerializer(read_only=True)
+    customer = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
     class Meta:
         model = CustomerBankAccount
         fields = '__all__'
+
+        def create(self, validated_data):
+            customer = validated_data.get('customer')
+            if CustomerBankAccount.objects.filter(customer=customer).count() >= 4:
+                raise serializers.ValidationError("You can only add maximum 4 accounts.")
+            if CustomerBankAccount.objects.filter(customer=customer, is_active=True).count() >= 1 and validated_data.get('is_active'):
+                raise serializers.ValidationError("You can only have one active account.")
+            if CustomerBankAccount.objects.filter(customer=customer, pan=validated_data.get('pan')).count() >= 4:
+                raise serializers.ValidationError("You can only add maximum 4 accounts per PAN.")
+            return super().create(validated_data)
+
+        def update(self, instance, validated_data):
+            customer = validated_data.get('customer')
+            if CustomerBankAccount.objects.filter(customer=customer).exclude(id=instance.id).count() >= 4:
+                raise serializers.ValidationError("You can only add maximum 4 accounts.")
+            if CustomerBankAccount.objects.filter(customer=customer, is_active=True).exclude(id=instance.id).count() >= 1 and validated_data.get('is_active'):
+                raise serializers.ValidationError("You can only have one active account.")
+            if CustomerBankAccount.objects.filter(customer=customer, pan=validated_data.get('pan')).exclude(id=instance.id).count() >= 4:
+                raise serializers.ValidationError("You can only add maximum 4 accounts per PAN.")
+            return super().update(instance, validated_data)
