@@ -8,14 +8,12 @@ from django.contrib.auth import authenticate
 from rest_framework.decorators import renderer_classes
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework import mixins, generics
-from project1.logging import my_function
 
 from customer.models import Customer
 
 # Create your views here.
 
 class CustomAuthToken(APIView):
-    my_function()
     authentication_classes = []
     permission_classes = [permissions.AllowAny]
 
@@ -34,7 +32,6 @@ class CustomAuthToken(APIView):
 
 # class CustomerCreateView(APIView):
 class CustomerCreateView(mixins.CreateModelMixin, generics.GenericAPIView):
-    my_function()
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
     authentication_classes = []
@@ -44,7 +41,6 @@ class CustomerCreateView(mixins.CreateModelMixin, generics.GenericAPIView):
         return self.create(request, *args, **kwargs)
 
 class CustomerListView(mixins.ListModelMixin, generics.GenericAPIView):
-    my_function()
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
     authentication_classes = []
@@ -54,7 +50,6 @@ class CustomerListView(mixins.ListModelMixin, generics.GenericAPIView):
         return self.list(request, *args, **kwargs)
 
 class CustomerViewSet(viewsets.ModelViewSet):
-    my_function()
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
     authentication_classes = [authentication.TokenAuthentication]

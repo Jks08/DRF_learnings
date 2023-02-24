@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-from .logging import logger_config
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -144,8 +143,6 @@ AUTH_EMAIL_REQUIRED = True
 AUTH_USERNAME_REQUIRED = False
 AUTH_AUTHENTICATION_METHOD = 'email'
 
-# ...
-
 # Configure logging
 
 LOGGING = {
@@ -159,7 +156,7 @@ LOGGING = {
         'file': {
             'class': 'logging.handlers.RotatingFileHandler',
             'filename': os.path.join(BASE_DIR, 'logs', 'project.log'),
-            'maxBytes': 1024*1024*5,
+            'maxBytes': 1024*1024*0.1,
             'backupCount': 5,
             'level': 'DEBUG',
             'formatter': 'verbose'
@@ -187,5 +184,3 @@ LOGGING = {
     }
 }
 
-# Get logger
-logger = logger_config()

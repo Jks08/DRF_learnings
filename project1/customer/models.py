@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from rest_framework.authtoken.models import Token
 from django.urls import reverse
-from project1.logging import my_function
 
 # Create your models here.
 
@@ -14,13 +13,11 @@ class CustomerManager(BaseUserManager):
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
         user.save()
-        my_function()
         return user
 
     def create_superuser(self, email, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
-        my_function()
         return self.create_user(email, password, **extra_fields)
 
 class Customer(AbstractBaseUser, PermissionsMixin):
@@ -38,7 +35,6 @@ class Customer(AbstractBaseUser, PermissionsMixin):
         token = Token.objects.create(user=self)
         self.token = token
         self.save()
-        my_function()
         return token
     
     objects = CustomerManager()
@@ -65,7 +61,6 @@ class BankMaster(models.Model):
     bank_website = models.URLField(max_length=200, blank=True, null=True)
     bank_number = models.CharField(max_length=20, blank=True, null=True)
     bank_logo = models.ImageField(upload_to='bank_logo', blank=True, null=True)
-    my_function()
 
     def __str__(self):
         return self.bank_name
@@ -82,7 +77,6 @@ class CustomerBankAccount(models.Model):
     verification_mode = models.CharField(max_length=20, blank=True, null=True)
     verification_status = models.CharField(max_length=20, blank=True, null=True)
     account_type = models.CharField(max_length=20)
-    my_function()
 
     def __str__(self):
         return self.account_number
