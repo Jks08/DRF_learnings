@@ -30,36 +30,29 @@ class CustomAuthToken(APIView):
             })
         return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
-# class CustomerCreateView(APIView):
-class CustomerCreateView(mixins.CreateModelMixin, generics.GenericAPIView):
-    queryset = Customer.objects.all()
-    serializer_class = CustomerSerializer
-    authentication_classes = []
-    permission_classes = [permissions.AllowAny]
-
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
-
-class CustomerListView(mixins.ListModelMixin, generics.GenericAPIView):
-    queryset = Customer.objects.all()
-    serializer_class = CustomerSerializer
-    authentication_classes = []
-    permission_classes = [permissions.AllowAny]
-
-    def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
-
 class CustomerViewSet(viewsets.ModelViewSet):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
     authentication_classes = [authentication.TokenAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
+
+    def get_permissions(self):
+        if self.action == 'create':
+            permission_classes = []
+        else:
+            permission_classes = [permissions.IsAuthenticated]
+        return [permission() for permission in permission_classes]
 
     def get_queryset(self):
-        return Customer.objects.filter(id=self.request.user.id)
+        if self.action in ['list', 'create']:
+            return Customer.objects.all()
+        else:
+            return Customer.objects.filter(id=self.request.user.id)
 
     def get_object(self):
-        return self.request.user
+        if self.action in ['list', 'create']:
+            return None
+        else:
+            return self.request.user
 
     def perform_create(self, serializer):
         serializer.save()
@@ -69,12 +62,6 @@ class CustomerViewSet(viewsets.ModelViewSet):
 
     def perform_destroy(self, instance):
         instance.delete()
-
-    def list(self, request, *args, **kwargs):
-        return super().retrieve(request, *args, **kwargs)
-
-    def create(self, request, *args, **kwargs):
-        return super().create(request, *args, **kwargs)
 
     def retrieve(self, request, *args, **kwargs):
         return super().retrieve(request, *args, **kwargs)
