@@ -7,9 +7,12 @@ from django.contrib.auth import authenticate
 from rest_framework.decorators import renderer_classes
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework import mixins, generics
+from rest_framework import filters
+from django_filters.rest_framework import DjangoFilterBackend
 
 from customer.models import Customer, CustomerBankAccount
 from customer.serializers import CustomerSerializer, CustomerBankAccountSerializer
+from customer.filters import CustomerFilter, CustomerBankAccountFilter
 
 # Create your views here.
 
@@ -34,6 +37,9 @@ class CustomerViewSet(viewsets.ModelViewSet):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
     authentication_classes = [authentication.TokenAuthentication]
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter, DjangoFilterBackend]   
+    filterset_class = CustomerFilter
+    search_fields = ['email', 'first_name', 'last_name', 'pan_no']
 
     def get_permissions(self):
         if self.action == 'create':
@@ -77,6 +83,7 @@ class CustomerBankAccountViewSet(viewsets.ModelViewSet):
     queryset = CustomerBankAccount.objects.all()
     serializer_class = CustomerBankAccountSerializer
     authentication_classes = [authentication.TokenAuthentication]
+    filter_class = CustomerBankAccountFilter
 
     def get_permissions(self):
         if self.action == 'create':
