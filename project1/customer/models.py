@@ -54,7 +54,6 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self):
         return self.first_name
 
-
 class BankMaster(models.Model):
     bank_id = models.AutoField(primary_key=True)
     bank_name = models.CharField(max_length=100)
