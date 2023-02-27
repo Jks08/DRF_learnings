@@ -145,7 +145,7 @@ class CustomerBankAccountViewSet(viewsets.ModelViewSet):
         customer = self.request.user
         if customer.is_authenticated:
             # In this we show only the bank_account with is_active=True
-            return CustomerBankAccount.objects.filter(customer=customer)
+            return CustomerBankAccount.objects.filter(customer=customer, is_active=True)
         else:
             return CustomerBankAccount.objects.none()
         
