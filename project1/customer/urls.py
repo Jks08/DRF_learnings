@@ -4,7 +4,7 @@ from rest_framework import routers
 
 router = routers.DefaultRouter()
 router.register(r'customers', views.CustomerViewSet)
-router.register(r'bankaccount', views.CustomerBankAccountViewSet)
+router.register(r'bankaccount', views.CustomerBankAccountViewSet, basename='bankaccount')
 
 urlpatterns = [
     path('customerviewset/', include(router.urls)),

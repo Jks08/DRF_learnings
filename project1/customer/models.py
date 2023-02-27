@@ -67,7 +67,7 @@ class BankMaster(models.Model):
 class CustomerBankAccount(models.Model):
     account_number = models.CharField(max_length=20, primary_key=True)
     ifsc_code = models.CharField(max_length=11)
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='customer_bank_accounts')
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     bank = models.ForeignKey(BankMaster, on_delete=models.CASCADE, related_name='bank_accounts')
     cheque_image = models.ImageField(upload_to='cheque_images', blank=True, null=True)
     branch_name = models.CharField(max_length=100)
@@ -75,7 +75,7 @@ class CustomerBankAccount(models.Model):
     name_as_per_bank_record = models.CharField(max_length=100)
     verification_mode = models.CharField(max_length=20, blank=True, null=True)
     verification_status = models.CharField(max_length=20, blank=True, null=True)
-    account_type = models.CharField(max_length=20)
+    account_type = models.CharField(choices=(('Savings', 'Savings'), ('Current', 'Current')), max_length=20)
 
     def __str__(self):
         return self.account_number

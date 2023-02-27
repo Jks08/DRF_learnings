@@ -23,12 +23,9 @@ class BankMasterSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class CustomerBankAccountSerializer(serializers.ModelSerializer):
-    bank = BankMasterSerializer(read_only=True)
-    customer = serializers.HiddenField(default=serializers.CurrentUserDefault())
-
     class Meta:
         model = CustomerBankAccount
-        fields = '__all__'
+        fields = ["account_number","ifsc_code", "customer", "bank", "cheque_image", "branch_name", "name_as_per_bank_record","account_type"]
 
         def create(self, validated_data):
             customer = validated_data.get('customer')

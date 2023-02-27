@@ -14,7 +14,7 @@ from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
 
 from customer.models import Customer, CustomerBankAccount, BankMaster
-from customer.serializers import CustomerSerializer, CustomerBankAccountSerializer
+from customer.serializers import CustomerSerializer, CustomerBankAccountSerializer, BankMasterSerializer
 from customer.filters import CustomerFilter, CustomerBankAccountFilter
 
 # Create your views here.
@@ -121,3 +121,36 @@ class CustomerViewSet(viewsets.ModelViewSet):
     
 #     def partial_update(self, request, *args, **kwargs):
 #         return super().partial_update(request, *args, **kwargs)
+
+class CustomerBankAccountViewSet(viewsets.ModelViewSet):
+    queryset = CustomerBankAccount.objects.all()
+    serializer_class = CustomerBankAccountSerializer
+    authentication_classes = [authentication.TokenAuthentication]
+    
+    # One customer can have a maximum of 4 bank accounts.
+    # If a customer has 4 bank accounts, then he/she cannot add any more bank accounts.
+    # If a customer has less than 4 bank accounts, then he/she can add a new bank account.
+    # To accomplish this, we need to override the create() method.
+    def create(self, request, *args, **kwargs):
+        customer = request.user
+        if customer.is_authenticated:
+            if customer.customerbankaccount_set.count() < 4:
+                return super().create(request, *args, **kwargs)
+            else:
+                return Response({'error': 'Maximum number of bank accounts reached'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({'error': 'User not authenticated'}, status=status.HTTP_400_BAD_REQUEST)
+
+    def get_queryset(self):
+        customer = self.request.user
+        if customer.is_authenticated:
+            # Show only the latest creted bank account
+            return CustomerBankAccount.objects.filter(customer=customer)
+        else:
+            return CustomerBankAccount.objects.none()
+        
+    def perform_create(self, serializer):
+        if self.request.user.is_authenticated:
+            serializer.save(customer=self.request.user)
+        else:
+            raise Exception("User not authenticated")
