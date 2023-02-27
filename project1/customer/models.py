@@ -73,8 +73,8 @@ class CustomerBankAccount(models.Model):
     branch_name = models.CharField(max_length=100)
     is_cheque_verified = models.BooleanField(default=False)
     name_as_per_bank_record = models.CharField(max_length=100)
-    verification_mode = models.CharField(max_length=20, blank=True, null=True)
-    verification_status = models.CharField(max_length=20, blank=True, null=True)
+    verification_mode = models.CharField(choices=(('Manual', 'Manual'), ('OCR', 'OCR')), default='Manual', max_length=20) 
+    verification_status = models.CharField(choices=(('Pending', 'Pending'), ('Verified', 'Verified'), ('Rejected', 'Rejected')), default='Pending', max_length=20)
     account_type = models.CharField(choices=(('Savings', 'Savings'), ('Current', 'Current')), max_length=20)
     is_active = models.BooleanField(default=True)
 

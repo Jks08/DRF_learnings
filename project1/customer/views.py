@@ -82,55 +82,12 @@ class CustomerViewSet(viewsets.ModelViewSet):
 
     def partial_update(self, request, *args, **kwargs):
         return super().partial_update(request, *args, **kwargs)
-    
-
-# class CustomerBankAccountViewSet(viewsets.ModelViewSet):
-#     queryset = CustomerBankAccount.objects.all()
-#     serializer_class = CustomerBankAccountSerializer
-#     authentication_classes = [authentication.TokenAuthentication]
-#     filter_class = CustomerBankAccountFilter
-
-#     def get_permissions(self):
-#         if self.action == 'create':
-#             permission_classes = []
-#         else:
-#             permission_classes = [permissions.IsAuthenticated]
-#         return [permission() for permission in permission_classes]
-    
-#     def get_queryset(self):
-#         customer = self.request.user
-#         if customer.is_authenticated:
-#             return Customer.objects.filter(id=customer.id)
-#         else:
-#             return Customer.objects.none()
-        
-#     def perform_create(self, serializer):
-#         serializer.save(customer=self.request.user)
-
-#     def perform_update(self, serializer):
-#         serializer.save()
-
-#     def perform_destroy(self, instance):
-#         instance.delete()
-
-#     def retrieve(self, request, *args, **kwargs):
-#         return super().retrieve(request, *args, **kwargs)
-    
-#     def update(self, request, *args, **kwargs):
-#         return super().update(request, *args, **kwargs)
-    
-#     def partial_update(self, request, *args, **kwargs):
-#         return super().partial_update(request, *args, **kwargs)
 
 class CustomerBankAccountViewSet(viewsets.ModelViewSet):
     queryset = CustomerBankAccount.objects.all()
     serializer_class = CustomerBankAccountSerializer
     authentication_classes = [authentication.TokenAuthentication]
     
-    # One customer can have a maximum of 4 bank accounts.
-    # If a customer has 4 bank accounts, then he/she cannot add any more bank accounts.
-    # If a customer has less than 4 bank accounts, then he/she can add a new bank account.
-    # To accomplish this, we need to override the create() method.
     def create(self, request, *args, **kwargs):
         customer = request.user
         if customer.is_authenticated:
@@ -143,8 +100,10 @@ class CustomerBankAccountViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         customer = self.request.user
+        id = self.kwargs.get('id')
         if customer.is_authenticated:
-            # In this we show only the bank_account with is_active=True
+            if id:
+                return CustomerBankAccount.objects.filter(customer=customer, id=id)
             return CustomerBankAccount.objects.filter(customer=customer, is_active=True)
         else:
             return CustomerBankAccount.objects.none()
@@ -161,8 +120,27 @@ class CustomerBankAccountViewSet(viewsets.ModelViewSet):
         else:
             return Response({'error': 'User not authenticated'}, status=status.HTTP_400_BAD_REQUEST)
         
-    def perform_update(self, serializer):
-        serializer.save()
-
-    def perform_destroy(self, instance):
-        instance.delete()
+    def update(self, request, *args, **kwargs):
+        customer = request.user
+        if customer.is_authenticated:
+            account_number = self.request.data.get('account_number')
+            if CustomerBankAccount.objects.filter(customer=customer, account_number=account_number).exists():
+                return super().update(request, *args, **kwargs)
+            else:
+                return Response({'error': 'Bank account does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({'error': 'User not authenticated'}, status=status.HTTP_400_BAD_REQUEST)
+        
+    def partial_update(self, request, *args, **kwargs):
+        customer = request.user
+        if customer.is_authenticated:
+            account_number = self.request.data.get('account_number')
+            if CustomerBankAccount.objects.filter(customer=customer, account_number=account_number).exists():
+                return super().partial_update(request, *args, **kwargs)
+            else:
+                return Response({'error': 'Bank account does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({'error': 'User not authenticated'}, status=status.HTTP_400_BAD_REQUEST)
+        
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
