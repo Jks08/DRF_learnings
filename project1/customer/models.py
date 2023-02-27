@@ -65,7 +65,7 @@ class BankMaster(models.Model):
         return self.bank_name
     
 class CustomerBankAccount(models.Model):
-    account_number = models.CharField(max_length=20, primary_key=True)
+    account_number = models.CharField(max_length=20, primary_key=False)
     ifsc_code = models.CharField(max_length=11)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     bank = models.ForeignKey(BankMaster, on_delete=models.CASCADE, related_name='bank_accounts')

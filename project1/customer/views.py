@@ -145,19 +145,19 @@ class CustomerBankAccountViewSet(viewsets.ModelViewSet):
         customer = self.request.user
         if customer.is_authenticated:
             # In this we show only the bank_account with is_active=True
-            return CustomerBankAccount.objects.filter(customer=customer, is_active=True)
+            return CustomerBankAccount.objects.filter(customer=customer)
         else:
             return CustomerBankAccount.objects.none()
         
     def perform_create(self, serializer):
         customer = self.request.user
         if customer.is_authenticated:
-            if customer.customerbankaccount_set.count() == 0:
-                serializer.save(customer=customer, is_active=True)
+            account_number = self.request.data.get('account_number')
+            if CustomerBankAccount.objects.filter(customer=customer, account_number=account_number, bank=self.request.data.get('bank')).exists():
+                return Response({'error': 'Bank account already exists'}, status=status.HTTP_400_BAD_REQUEST)
             else:
                 serializer.save(customer=customer, is_active=True)
-                CustomerBankAccount.objects.filter(customer=customer).exclude(account_number=serializer.instance.account_number).update(is_active=False)
-    
+                CustomerBankAccount.objects.filter(customer=customer).exclude(account_number=account_number).update(is_active=False)
         else:
             return Response({'error': 'User not authenticated'}, status=status.HTTP_400_BAD_REQUEST)
         
