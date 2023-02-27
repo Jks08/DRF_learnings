@@ -76,6 +76,7 @@ class CustomerBankAccount(models.Model):
     verification_mode = models.CharField(max_length=20, blank=True, null=True)
     verification_status = models.CharField(max_length=20, blank=True, null=True)
     account_type = models.CharField(choices=(('Savings', 'Savings'), ('Current', 'Current')), max_length=20)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.account_number

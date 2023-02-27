@@ -144,13 +144,25 @@ class CustomerBankAccountViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         customer = self.request.user
         if customer.is_authenticated:
-            # Show only the latest creted bank account
-            return CustomerBankAccount.objects.filter(customer=customer)
+            # In this we show only the bank_account with is_active=True
+            return CustomerBankAccount.objects.filter(customer=customer, is_active=True)
         else:
             return CustomerBankAccount.objects.none()
         
     def perform_create(self, serializer):
-        if self.request.user.is_authenticated:
-            serializer.save(customer=self.request.user)
+        customer = self.request.user
+        if customer.is_authenticated:
+            if customer.customerbankaccount_set.count() == 0:
+                serializer.save(customer=customer, is_active=True)
+            else:
+                serializer.save(customer=customer, is_active=True)
+                CustomerBankAccount.objects.filter(customer=customer).exclude(account_number=serializer.instance.account_number).update(is_active=False)
+    
         else:
-            raise Exception("User not authenticated")
+            return Response({'error': 'User not authenticated'}, status=status.HTTP_400_BAD_REQUEST)
+        
+    def perform_update(self, serializer):
+        serializer.save()
+
+    def perform_destroy(self, instance):
+        instance.delete()

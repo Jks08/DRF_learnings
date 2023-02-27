@@ -33,6 +33,14 @@ class BankMasterAdmin(admin.ModelAdmin):
 
 @admin.register(CustomerBankAccount)
 class CustomerBankAccountAdmin(admin.ModelAdmin):
-    list_display = ['account_number', 'ifsc_code', 'account_number_ifsc_code', 'customer', 'bank', 'branch_name', 'name_as_per_bank_record', 'account_type']
+    list_display = ['account_number', 'ifsc_code', 'account_number_ifsc_code', 'customer', 'bank', 'branch_name', 'name_as_per_bank_record', 'account_type', 'is_active']
     search_fields = ['account_number', 'ifsc_code', 'customer', 'bank', 'branch_name']
     ordering = ['account_number']
+
+    def save_model(self, request, obj, form, change):
+        if CustomerBankAccount.objects.filter(customer=obj.customer).count() >= 4:
+            raise Exception("You can only add maximum 4 accounts.")
+        if CustomerBankAccount.objects.filter(customer=obj.customer, is_active=True).count() >= 1 and obj.is_active:
+            raise Exception("One active account alredy exists which was from the API. To add a new active accoutn, please use the API.")
+        super().save_model(request, obj, form, change)
+
