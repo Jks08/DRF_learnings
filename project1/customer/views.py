@@ -124,6 +124,9 @@ class CustomerBankAccountViewSet(viewsets.ModelViewSet):
         customer = request.user
         if customer.is_authenticated:
             account_number = self.request.data.get('account_number')
+            obj = self.get_object()
+            if obj.verification_status == 'Verified':
+                return Response({'error': 'Bank account details cannot be updated as verification status is Verified'}, status=status.HTTP_400_BAD_REQUEST)
             if CustomerBankAccount.objects.filter(customer=customer, account_number=account_number).exists():
                 return super().update(request, *args, **kwargs)
             else:
@@ -135,6 +138,9 @@ class CustomerBankAccountViewSet(viewsets.ModelViewSet):
         customer = request.user
         if customer.is_authenticated:
             account_number = self.request.data.get('account_number')
+            obj = self.get_object()
+            if obj.verification_status == 'Verified':
+                return Response({'error': 'Bank account details cannot be updated as verification status is Verified'}, status=status.HTTP_400_BAD_REQUEST)
             if CustomerBankAccount.objects.filter(customer=customer, account_number=account_number).exists():
                 return super().partial_update(request, *args, **kwargs)
             else:
