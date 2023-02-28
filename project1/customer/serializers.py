@@ -23,9 +23,19 @@ class BankMasterSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class CustomerBankAccountSerializer(serializers.ModelSerializer):
+    bank_logo = serializers.CharField(source='bank.bank_logo', read_only=True)
+
     class Meta:
         model = CustomerBankAccount
-        fields = ['id',"account_number","ifsc_code", "customer", "bank", "cheque_image", "branch_name", "name_as_per_bank_record","account_type","is_active"]
+        fields = ['id',"account_number","ifsc_code", "customer", "bank", "cheque_image", "branch_name", "name_as_per_bank_record","account_type","is_active", "bank_logo", "verification_status"]
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        request = self.context.get('request')
+        if request.method == 'GET':
+            bank = instance.bank
+            representation['bank_logo'] = bank.bank_logo
+        return representation
 
     def validate(self, attrs):
         if not self.instance:

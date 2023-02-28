@@ -82,6 +82,7 @@ class CustomerBankAccountViewSet(viewsets.ModelViewSet):
     queryset = CustomerBankAccount.objects.all()
     serializer_class = CustomerBankAccountSerializer
     authentication_classes = [authentication.TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def create(self, request, *args, **kwargs):
         if not self.request.user.is_authenticated:
@@ -110,3 +111,18 @@ class CustomerBankAccountViewSet(viewsets.ModelViewSet):
             if getattr(instance, '_prefetched_objects_cache', None):
                 instance._prefetched_objects_cache = {}
             return Response(serializer.data)
+        
+class BankMasterViewSet(viewsets.ModelViewSet):
+    queryset = BankMaster.objects.all()
+    serializer_class = BankMasterSerializer
+    authentication_classes = [authentication.TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+    
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+    
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
