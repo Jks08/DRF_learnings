@@ -1,6 +1,7 @@
 # env
 env1/
 __pycache__/
+migrations/
 
 logs/
 *.log

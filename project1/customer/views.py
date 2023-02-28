@@ -1,16 +1,9 @@
-from django.http import Http404
-from django.shortcuts import render
-from django.shortcuts import get_object_or_404
-from django.db.models import Q
-from django.db import models
 from rest_framework import status, permissions, authentication, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
 from rest_framework.decorators import renderer_classes
-from rest_framework.renderers import TemplateHTMLRenderer
-from rest_framework import mixins, generics
 from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
 
@@ -85,7 +78,6 @@ class CustomerViewSet(viewsets.ModelViewSet):
         return super().partial_update(request, *args, **kwargs)
 
 class CustomerBankAccountViewSet(viewsets.ModelViewSet):
-    queryset = CustomerBankAccount.objects.all()
     serializer_class = CustomerBankAccountSerializer
     authentication_classes = [authentication.TokenAuthentication]
     
@@ -101,12 +93,9 @@ class CustomerBankAccountViewSet(viewsets.ModelViewSet):
     
     def get_queryset(self):
         customer = self.request.user
-        id = self.kwargs.get('id')
+        print(customer.id)
         if customer.is_authenticated:
-            if id:
-                return CustomerBankAccount.objects.filter(id=id)
-            else:
-                return CustomerBankAccount.objects.filter(customer=customer, is_active=True)
+            return CustomerBankAccount.objects.filter(customer=customer, is_active=True)
         else:
             return CustomerBankAccount.objects.none()
         
@@ -131,10 +120,17 @@ class CustomerBankAccountViewSet(viewsets.ModelViewSet):
             if obj.verification_status == 'Verified':
                 return Response({'error': 'Bank account details cannot be updated as verification status is Verified'}, status=status.HTTP_400_BAD_REQUEST)
             data = request.data.copy()
-            data.pop('customer', None)  # Exclude 'customer' field from the request data
-            account_number = data.get('account_number')
             if CustomerBankAccount.objects.filter(customer=customer, account_number=account_number).exists():
-                return super().update(request, *args, **kwargs)
+                # Do not allow updating the account number, customer, is_active, cheque_image and verification_status fields
+                data.pop('account_number', None)
+                data.pop('customer', None)
+                data.pop('is_active', None)
+                data.pop('cheque_image', None)
+                data.pop('verification_status', None)
+                serializer = self.get_serializer(obj, data=data, partial=True)
+                serializer.is_valid(raise_exception=True)
+                self.perform_update(serializer)
+                return Response(serializer.data)
             else:
                 return Response({'error': 'Bank account does not exist'}, status=status.HTTP_400_BAD_REQUEST)
         else:
@@ -148,10 +144,16 @@ class CustomerBankAccountViewSet(viewsets.ModelViewSet):
             if obj.verification_status == 'Verified':
                 return Response({'error': 'Bank account details cannot be updated as verification status is Verified'}, status=status.HTTP_400_BAD_REQUEST)
             data = request.data.copy()
-            data.pop('customer', None)  # Exclude 'customer' field from the request data
-            account_number = data.get('account_number')
             if CustomerBankAccount.objects.filter(customer=customer, account_number=account_number).exists():
-                return super().partial_update(request, *args, **kwargs)
+                data.pop('account_number', None)
+                data.pop('customer', None)
+                data.pop('is_active', None)
+                data.pop('cheque_image', None)
+                data.pop('verification_status', None)
+                serializer = self.get_serializer(obj, data=data, partial=True)
+                serializer.is_valid(raise_exception=True)
+                self.perform_update(serializer)
+                return Response(serializer.data)
             else:
                 return Response({'error': 'Bank account does not exist'}, status=status.HTTP_400_BAD_REQUEST)
         else:
