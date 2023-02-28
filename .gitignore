@@ -1,4 +1,16 @@
 # env
 env1/
 __pycache__/
-project1/logs/
+
+logs/
+*.log
+*.1
+*.2
+*.3
+*.4
+*.5
+*.6
+*.7
+*.8
+*.9
+
