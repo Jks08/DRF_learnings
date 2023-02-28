@@ -33,7 +33,7 @@ class BankMasterAdmin(admin.ModelAdmin):
 
 @admin.register(CustomerBankAccount)
 class CustomerBankAccountAdmin(admin.ModelAdmin):
-    list_display = ['id','account_number', 'ifsc_code', 'account_number_ifsc_code', 'customer', 'bank', 'branch_name', 'name_as_per_bank_record', 'account_type', 'is_active', 'verification_status']
+    list_display = ['id','account_number', 'ifsc_code', 'account_number_ifsc_code', 'customer', 'bank', 'is_active', 'branch_name', 'name_as_per_bank_record', 'account_type', 'verification_status']
     search_fields = ['account_number', 'ifsc_code', 'customer', 'bank', 'branch_name']
     ordering = ['account_number']
 
