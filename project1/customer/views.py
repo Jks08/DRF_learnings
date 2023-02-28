@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
@@ -97,14 +98,15 @@ class CustomerBankAccountViewSet(viewsets.ModelViewSet):
                 return Response({'error': 'Maximum number of bank accounts reached'}, status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response({'error': 'User not authenticated'}, status=status.HTTP_400_BAD_REQUEST)
-
+    
     def get_queryset(self):
         customer = self.request.user
         id = self.kwargs.get('id')
         if customer.is_authenticated:
             if id:
-                return CustomerBankAccount.objects.filter(customer=customer, id=id)
-            return CustomerBankAccount.objects.filter(customer=customer, is_active=True)
+                return CustomerBankAccount.objects.filter(id=id)
+            else:
+                return CustomerBankAccount.objects.filter(customer=customer, is_active=True)
         else:
             return CustomerBankAccount.objects.none()
         
@@ -127,6 +129,9 @@ class CustomerBankAccountViewSet(viewsets.ModelViewSet):
             obj = self.get_object()
             if obj.verification_status == 'Verified':
                 return Response({'error': 'Bank account details cannot be updated as verification status is Verified'}, status=status.HTTP_400_BAD_REQUEST)
+            data = request.data.copy()
+            data.pop('customer', None)  # Exclude 'customer' field from the request data
+            account_number = data.get('account_number')
             if CustomerBankAccount.objects.filter(customer=customer, account_number=account_number).exists():
                 return super().update(request, *args, **kwargs)
             else:
@@ -141,6 +146,9 @@ class CustomerBankAccountViewSet(viewsets.ModelViewSet):
             obj = self.get_object()
             if obj.verification_status == 'Verified':
                 return Response({'error': 'Bank account details cannot be updated as verification status is Verified'}, status=status.HTTP_400_BAD_REQUEST)
+            data = request.data.copy()
+            data.pop('customer', None)  # Exclude 'customer' field from the request data
+            account_number = data.get('account_number')
             if CustomerBankAccount.objects.filter(customer=customer, account_number=account_number).exists():
                 return super().partial_update(request, *args, **kwargs)
             else:
