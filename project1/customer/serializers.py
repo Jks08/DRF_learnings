@@ -25,21 +25,41 @@ class BankMasterSerializer(serializers.ModelSerializer):
 class CustomerBankAccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomerBankAccount
-        fields = ["account_number","ifsc_code", "customer", "bank", "cheque_image", "branch_name", "name_as_per_bank_record","account_type","is_active"]
+        fields = ['id',"account_number","ifsc_code", "customer", "bank", "cheque_image", "branch_name", "name_as_per_bank_record","account_type","is_active"]
 
     def validate(self, attrs):
-        if CustomerBankAccount.objects.filter(customer=attrs['customer']).count() >= 4:
-            raise serializers.ValidationError("You can only add maximum 4 accounts.")
-    
-        if CustomerBankAccount.objects.filter(customer=attrs['customer'], bank=attrs['bank']).count() >= 1:
-            raise serializers.ValidationError("You can only add one account per bank.")
+        # This is for create, but is being called for update as well
+        # To restrict this for create only, use self.instance as such:
+        if not self.instance:
+            if CustomerBankAccount.objects.filter(customer=attrs['customer']).count() >= 4:
+                raise serializers.ValidationError("You can only add maximum 4 accounts.")
         
-        if CustomerBankAccount.objects.filter(customer=attrs['customer'], is_active=True):
-            CustomerBankAccount.objects.filter(customer=attrs['customer']).update(is_active=False)
-        attrs['is_active'] = True
+            if CustomerBankAccount.objects.filter(customer=attrs['customer'], bank=attrs['bank']).count() >= 1:
+                raise serializers.ValidationError("You can only add one account per bank.")
+            
+            if CustomerBankAccount.objects.filter(customer=attrs['customer'], is_active=True):
+                CustomerBankAccount.objects.filter(customer=attrs['customer']).update(is_active=False)
+            attrs['is_active'] = True
 
-        if CustomerBankAccount.objects.filter(account_number=attrs['account_number'], ifsc_code=attrs['ifsc_code']).count() >= 1:
-            raise serializers.ValidationError("Account number and IFSC code already exists.")
-        
+            if CustomerBankAccount.objects.filter(account_number=attrs['account_number'], ifsc_code=attrs['ifsc_code']).count() >= 1:
+                raise serializers.ValidationError("Account number and IFSC code already exists.")
         return super().validate(attrs)
+    
+    def update(self, instance, validated_data):
+        if instance.is_active:
+            if instance.verification_status != 'Verified':
+                instance.ifsc_code = validated_data.get('ifsc_code', instance.ifsc_code)
+                instance.branch_name = validated_data.get('branch_name', instance.branch_name)
+                instance.name_as_per_bank_record = validated_data.get('name_as_per_bank_record', instance.name_as_per_bank_record)
+                instance.account_type = validated_data.get('account_type', instance.account_type)
+                instance.save()
+                return instance
+            else:
+                raise serializers.ValidationError("Account is already verified. You cannot update it.")
+        else:
+            raise serializers.ValidationError("Account is not active. You cannot update it.")
+
+
+
+
     

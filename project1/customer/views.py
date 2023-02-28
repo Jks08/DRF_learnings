@@ -84,14 +84,30 @@ class CustomerBankAccountViewSet(viewsets.ModelViewSet):
     authentication_classes = [authentication.TokenAuthentication]
 
     def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        # Only authenticated users can create a bank account.
+        if not self.request.user.is_authenticated:
+            return Response({'error': 'You are not authenticated.'}, status=status.HTTP_401_UNAUTHORIZED)
+        else:
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            self.perform_create(serializer)
+            headers = self.get_success_headers(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
     
     def get_queryset(self):
         if self.request.user.is_authenticated:
             return CustomerBankAccount.objects.filter(customer=self.request.user, is_active=True)
         else:
             return CustomerBankAccount.objects.none()
+        
+    def update(self, request, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            return Response({'error': 'You are not authenticated.'}, status=status.HTTP_401_UNAUTHORIZED)
+        else:
+            instance = self.get_object()
+            serializer = self.get_serializer(instance, data=request.data, partial=True)
+            serializer.is_valid(raise_exception=True)
+            self.perform_update(serializer)
+            if getattr(instance, '_prefetched_objects_cache', None):
+                instance._prefetched_objects_cache = {}
+            return Response(serializer.data)
