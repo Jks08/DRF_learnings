@@ -114,13 +114,14 @@ class CustomerBankAccountViewSet(viewsets.ModelViewSet):
         customer = self.request.user
         if customer.is_authenticated:
             account_number = self.request.data.get('account_number')
-            if CustomerBankAccount.objects.filter(customer=customer, account_number=account_number, bank=self.request.data.get('bank')).exists():
-                return Response({'error': 'Bank account already exists'}, status=status.HTTP_400_BAD_REQUEST)
+            ifsc_code = self.request.data.get('ifsc_code')
+            if CustomerBankAccount.objects.filter(customer=customer, account_number=account_number, ifsc_code=ifsc_code).exists():
+                raise serializer.ValidationError('Bank account already exists for this combination of account number and IFSC code.')
             else:
                 serializer.save(customer=customer, is_active=True)
                 CustomerBankAccount.objects.filter(customer=customer).exclude(account_number=account_number).update(is_active=False)
         else:
-            return Response({'error': 'User not authenticated'}, status=status.HTTP_400_BAD_REQUEST)
+            raise Response({'error': 'User not authenticated'}, status=status.HTTP_400_BAD_REQUEST)
         
     def update(self, request, *args, **kwargs):
         customer = request.user
