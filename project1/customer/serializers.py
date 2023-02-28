@@ -28,8 +28,6 @@ class CustomerBankAccountSerializer(serializers.ModelSerializer):
         fields = ['id',"account_number","ifsc_code", "customer", "bank", "cheque_image", "branch_name", "name_as_per_bank_record","account_type","is_active"]
 
     def validate(self, attrs):
-        # This is for create, but is being called for update as well
-        # To restrict this for create only, use self.instance as such:
         if not self.instance:
             if CustomerBankAccount.objects.filter(customer=attrs['customer']).count() >= 4:
                 raise serializers.ValidationError("You can only add maximum 4 accounts.")

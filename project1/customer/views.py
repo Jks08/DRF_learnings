@@ -84,7 +84,6 @@ class CustomerBankAccountViewSet(viewsets.ModelViewSet):
     authentication_classes = [authentication.TokenAuthentication]
 
     def create(self, request, *args, **kwargs):
-        # Only authenticated users can create a bank account.
         if not self.request.user.is_authenticated:
             return Response({'error': 'You are not authenticated.'}, status=status.HTTP_401_UNAUTHORIZED)
         else:
