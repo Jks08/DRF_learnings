@@ -1,6 +1,6 @@
 # DRF_Demo
 
-Demo work on DRF
+The main project files and directories are in [project1](https://github.com/Jks08/DRF_learnings/tree/main/project1) directory
 
 - [X] Customer can add only 4 account at max.
 - [X] In GET bank API ; only active bank to be shown ; hence only ONE bank should come in GET Bank API response.
