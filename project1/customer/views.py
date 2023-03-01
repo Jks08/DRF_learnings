@@ -77,87 +77,57 @@ class CustomerViewSet(viewsets.ModelViewSet):
     def partial_update(self, request, *args, **kwargs):
         return super().partial_update(request, *args, **kwargs)
 
+
 class CustomerBankAccountViewSet(viewsets.ModelViewSet):
+    queryset = CustomerBankAccount.objects.all()
     serializer_class = CustomerBankAccountSerializer
     authentication_classes = [authentication.TokenAuthentication]
-    
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
     def create(self, request, *args, **kwargs):
-        customer = request.user
-        if customer.is_authenticated:
-            if customer.customerbankaccount_set.count() < 4:
-                return super().create(request, *args, **kwargs)
-            else:
-                return Response({'error': 'Maximum number of bank accounts reached'}, status=status.HTTP_400_BAD_REQUEST)
+        if not self.request.user.is_authenticated:
+            return Response({'error': 'You are not authenticated.'}, status=status.HTTP_401_UNAUTHORIZED)
         else:
-            return Response({'error': 'User not authenticated'}, status=status.HTTP_400_BAD_REQUEST)
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            self.perform_create(serializer)
+            headers = self.get_success_headers(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
     
     def get_queryset(self):
-        customer = self.request.user
-        print(customer.id)
-        if customer.is_authenticated:
-            return CustomerBankAccount.objects.filter(customer=customer, is_active=True)
+        if self.request.user.is_authenticated:
+            return CustomerBankAccount.objects.filter(customer=self.request.user, is_active=True)
         else:
             return CustomerBankAccount.objects.none()
         
-    def perform_create(self, serializer):
-        customer = self.request.user
-        if customer.is_authenticated:
-            account_number = self.request.data.get('account_number')
-            ifsc_code = self.request.data.get('ifsc_code')
-            if CustomerBankAccount.objects.filter(customer=customer, account_number=account_number, ifsc_code=ifsc_code).exists():
-                raise serializer.ValidationError('Bank account already exists for this combination of account number and IFSC code.')
-            else:
-                serializer.save(customer=customer, is_active=True)
-                CustomerBankAccount.objects.filter(customer=customer).exclude(account_number=account_number).update(is_active=False)
-        else:
-            raise Response({'error': 'User not authenticated'}, status=status.HTTP_400_BAD_REQUEST)
-        
     def update(self, request, *args, **kwargs):
-        customer = request.user
-        if customer.is_authenticated:
-            account_number = self.request.data.get('account_number')
-            obj = self.get_object()
-            if obj.verification_status == 'Verified':
-                return Response({'error': 'Bank account details cannot be updated as verification status is Verified'}, status=status.HTTP_400_BAD_REQUEST)
-            data = request.data.copy()
-            if CustomerBankAccount.objects.filter(customer=customer, account_number=account_number).exists():
-                # Do not allow updating the account number, customer, is_active, cheque_image and verification_status fields
-                data.pop('account_number', None)
-                data.pop('customer', None)
-                data.pop('is_active', None)
-                data.pop('cheque_image', None)
-                data.pop('verification_status', None)
-                serializer = self.get_serializer(obj, data=data, partial=True)
-                serializer.is_valid(raise_exception=True)
-                self.perform_update(serializer)
-                return Response(serializer.data)
-            else:
-                return Response({'error': 'Bank account does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+        if not self.request.user.is_authenticated:
+            return Response({'error': 'You are not authenticated.'}, status=status.HTTP_401_UNAUTHORIZED)
         else:
-            return Response({'error': 'User not authenticated'}, status=status.HTTP_400_BAD_REQUEST)
+            instance = self.get_object()
+            serializer = self.get_serializer(instance, data=request.data, partial=True)
+            serializer.is_valid(raise_exception=True)
+            self.perform_update(serializer)
+            if getattr(instance, '_prefetched_objects_cache', None):
+                instance._prefetched_objects_cache = {}
+            return Response(serializer.data)
         
-    def partial_update(self, request, *args, **kwargs):
-        customer = request.user
-        if customer.is_authenticated:
-            account_number = self.request.data.get('account_number')
-            obj = self.get_object()
-            if obj.verification_status == 'Verified':
-                return Response({'error': 'Bank account details cannot be updated as verification status is Verified'}, status=status.HTTP_400_BAD_REQUEST)
-            data = request.data.copy()
-            if CustomerBankAccount.objects.filter(customer=customer, account_number=account_number).exists():
-                data.pop('account_number', None)
-                data.pop('customer', None)
-                data.pop('is_active', None)
-                data.pop('cheque_image', None)
-                data.pop('verification_status', None)
-                serializer = self.get_serializer(obj, data=data, partial=True)
-                serializer.is_valid(raise_exception=True)
-                self.perform_update(serializer)
-                return Response(serializer.data)
-            else:
-                return Response({'error': 'Bank account does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+class BankMasterViewSet(viewsets.ModelViewSet):
+    queryset = BankMaster.objects.all()
+    serializer_class = BankMasterSerializer
+
+    def get_permissions(self):
+        if self.action == 'create' or self.action=='update':
+            permission_classes = [permissions.IsAdminUser]
         else:
-            return Response({'error': 'User not authenticated'}, status=status.HTTP_400_BAD_REQUEST)
-        
-    def put(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
+            permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+        return [permission() for permission in permission_classes]
+
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+    
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+    
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
