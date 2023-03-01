@@ -1,12 +1,33 @@
 from django.contrib import admin
-from django.urls import reverse
-from django.utils.html import format_html
+from django.forms import ModelForm
+from django.http.request import HttpRequest
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from customer.models import Customer, CustomerBankAccount, BankMaster
 
 # Register your models here.
 
-class CustomerAdmin(BaseUserAdmin):
+class NoPermissionAdmin(admin.ModelAdmin):
+    actions = None
+
+    def has_add_permission(self, request: HttpRequest) -> bool:
+        return False
+    
+    def has_change_permission(self, request: HttpRequest, obj=None) -> bool:
+        return False
+    
+    def has_delete_permission(self, request: HttpRequest, obj=None) -> bool:
+        return False
+    
+    def get_actions(self, request: HttpRequest) -> dict:
+        actions = super().get_actions(request)
+        actions.clear()
+        return actions
+    
+    def get_readonly_fields(self, request: HttpRequest, obj=None) -> list[str]:
+        return [f.name for f in self.model._meta.fields]
+    
+
+class CustomerAdmin(NoPermissionAdmin):
     model = Customer
     ordering = ['email']
     list_display = ['id','email', 'first_name', 'middle_name', 'last_name', 'pan_no', 'is_active']
@@ -32,12 +53,12 @@ class BankMasterAdmin(admin.ModelAdmin):
     ordering = ['bank_id']
 
 @admin.register(CustomerBankAccount)
-class CustomerBankAccountAdmin(admin.ModelAdmin):
+class CustomerBankAccountAdmin(NoPermissionAdmin):
     list_display = ['id','account_number', 'ifsc_code', 'account_number_ifsc_code', 'customer', 'bank', 'is_active', 'branch_name', 'name_as_per_bank_record', 'account_type', 'verification_status']
     search_fields = ['account_number', 'ifsc_code', 'customer', 'bank', 'branch_name']
     ordering = ['account_number']
 
-    def save_model(self, request, obj, form, change):
+    def save_model(self, request: HttpRequest, obj, form, change: bool) -> None:
         if not change:  
             if CustomerBankAccount.objects.filter(customer=obj.customer).count() >= 4:
                 raise Exception("You can only add maximum 4 accounts.")
