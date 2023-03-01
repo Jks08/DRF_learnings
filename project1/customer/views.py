@@ -115,8 +115,13 @@ class CustomerBankAccountViewSet(viewsets.ModelViewSet):
 class BankMasterViewSet(viewsets.ModelViewSet):
     queryset = BankMaster.objects.all()
     serializer_class = BankMasterSerializer
-    authentication_classes = [authentication.TokenAuthentication]
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def get_permissions(self):
+        if self.action == 'create' or self.action=='update':
+            permission_classes = [permissions.IsAdminUser]
+        else:
+            permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+        return [permission() for permission in permission_classes]
 
     def create(self, request, *args, **kwargs):
         return super().create(request, *args, **kwargs)
