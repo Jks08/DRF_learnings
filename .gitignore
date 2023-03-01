@@ -3,8 +3,6 @@ env1/
 __pycache__/
 migrations/
 
-logs/
-*.log
 *.1
 *.2
 *.3
