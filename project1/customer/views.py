@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate
 from rest_framework.decorators import renderer_classes
 from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
+from typing import List
 
 from customer.models import Customer, CustomerBankAccount, BankMaster
 from customer.serializers import CustomerSerializer, CustomerBankAccountSerializer, BankMasterSerializer
@@ -38,7 +39,7 @@ class CustomerViewSet(viewsets.ModelViewSet):
     filterset_class = CustomerFilter
     search_fields = ['email', 'first_name', 'last_name', 'pan_no']
 
-    def get_permissions(self) -> list[permissions.BasePermission]:
+    def get_permissions(self) -> List[permissions.BasePermission]:
         if self.action == 'create':
             permission_classes = []
         else:
@@ -116,7 +117,7 @@ class BankMasterViewSet(viewsets.ModelViewSet):
     queryset = BankMaster.objects.all()
     serializer_class = BankMasterSerializer
 
-    def get_permissions(self) -> list[permissions.BasePermission]:
+    def get_permissions(self) -> List[permissions.BasePermission]:
         if self.action == 'create' or self.action=='update':
             permission_classes = [permissions.IsAdminUser]
         else:

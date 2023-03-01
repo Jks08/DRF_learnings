@@ -23,7 +23,7 @@ class NoPermissionAdmin(admin.ModelAdmin):
         actions.clear()
         return actions
     
-    def get_readonly_fields(self, request: HttpRequest, obj=None) -> list[str]:
+    def get_readonly_fields(self, request: HttpRequest, obj=None) -> List[str]:
         return [f.name for f in self.model._meta.fields]
     
 
