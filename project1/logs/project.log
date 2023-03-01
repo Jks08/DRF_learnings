@@ -1,65 +1,472 @@
-2023-03-01 05:05:42,450 - django.db.backends - DEBUG - (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2023-03-01 05:05:42.449043' AND "django_session"."session_key" = 'nipndlwhv6v8b8fny2s4p67qjsea4b1a') LIMIT 21; args=('2023-03-01 05:05:42.449043', 'nipndlwhv6v8b8fny2s4p67qjsea4b1a'); alias=default
-2023-03-01 05:05:42,451 - django.db.backends - DEBUG - (0.000) SELECT "customer_customer"."id", "customer_customer"."password", "customer_customer"."last_login", "customer_customer"."is_superuser", "customer_customer"."first_name", "customer_customer"."middle_name", "customer_customer"."last_name", "customer_customer"."pan_no", "customer_customer"."email", "customer_customer"."is_active", "customer_customer"."is_staff", "customer_customer"."token_id" FROM "customer_customer" WHERE "customer_customer"."id" = 1 LIMIT 21; args=(1,); alias=default
-2023-03-01 05:05:42,463 - django.db.backends - DEBUG - (0.000) SELECT "django_admin_log"."id", "django_admin_log"."action_time", "django_admin_log"."user_id", "django_admin_log"."content_type_id", "django_admin_log"."object_id", "django_admin_log"."object_repr", "django_admin_log"."action_flag", "django_admin_log"."change_message", "customer_customer"."id", "customer_customer"."password", "customer_customer"."last_login", "customer_customer"."is_superuser", "customer_customer"."first_name", "customer_customer"."middle_name", "customer_customer"."last_name", "customer_customer"."pan_no", "customer_customer"."email", "customer_customer"."is_active", "customer_customer"."is_staff", "customer_customer"."token_id", "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_admin_log" INNER JOIN "customer_customer" ON ("django_admin_log"."user_id" = "customer_customer"."id") LEFT OUTER JOIN "django_content_type" ON ("django_admin_log"."content_type_id" = "django_content_type"."id") WHERE "django_admin_log"."user_id" = 1 ORDER BY "django_admin_log"."action_time" DESC LIMIT 10; args=(1,); alias=default
-2023-03-01 05:05:44,150 - django.db.backends - DEBUG - (0.001) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2023-03-01 05:05:44.148013' AND "django_session"."session_key" = 'nipndlwhv6v8b8fny2s4p67qjsea4b1a') LIMIT 21; args=('2023-03-01 05:05:44.148013', 'nipndlwhv6v8b8fny2s4p67qjsea4b1a'); alias=default
-2023-03-01 05:05:44,152 - django.db.backends - DEBUG - (0.000) SELECT "customer_customer"."id", "customer_customer"."password", "customer_customer"."last_login", "customer_customer"."is_superuser", "customer_customer"."first_name", "customer_customer"."middle_name", "customer_customer"."last_name", "customer_customer"."pan_no", "customer_customer"."email", "customer_customer"."is_active", "customer_customer"."is_staff", "customer_customer"."token_id" FROM "customer_customer" WHERE "customer_customer"."id" = 1 LIMIT 21; args=(1,); alias=default
-2023-03-01 05:05:44,153 - django.db.backends - DEBUG - (0.000) SELECT COUNT(*) AS "__count" FROM "customer_bankmaster"; args=(); alias=default
-2023-03-01 05:05:44,154 - django.db.backends - DEBUG - (0.000) SELECT COUNT(*) AS "__count" FROM "customer_bankmaster"; args=(); alias=default
-2023-03-01 05:05:44,156 - django.db.backends - DEBUG - (0.000) SELECT "customer_bankmaster"."bank_id", "customer_bankmaster"."bank_name", "customer_bankmaster"."bank_website", "customer_bankmaster"."bank_number", "customer_bankmaster"."bank_logo" FROM "customer_bankmaster" ORDER BY "customer_bankmaster"."bank_id" ASC; args=(); alias=default
-2023-03-01 05:05:44,239 - django.db.backends - DEBUG - (0.001) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2023-03-01 05:05:44.237552' AND "django_session"."session_key" = 'nipndlwhv6v8b8fny2s4p67qjsea4b1a') LIMIT 21; args=('2023-03-01 05:05:44.237552', 'nipndlwhv6v8b8fny2s4p67qjsea4b1a'); alias=default
-2023-03-01 05:05:44,241 - django.db.backends - DEBUG - (0.000) SELECT "customer_customer"."id", "customer_customer"."password", "customer_customer"."last_login", "customer_customer"."is_superuser", "customer_customer"."first_name", "customer_customer"."middle_name", "customer_customer"."last_name", "customer_customer"."pan_no", "customer_customer"."email", "customer_customer"."is_active", "customer_customer"."is_staff", "customer_customer"."token_id" FROM "customer_customer" WHERE "customer_customer"."id" = 1 LIMIT 21; args=(1,); alias=default
-2023-03-01 05:05:47,092 - django.db.backends - DEBUG - (0.001) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2023-03-01 05:05:47.089417' AND "django_session"."session_key" = 'nipndlwhv6v8b8fny2s4p67qjsea4b1a') LIMIT 21; args=('2023-03-01 05:05:47.089417', 'nipndlwhv6v8b8fny2s4p67qjsea4b1a'); alias=default
-2023-03-01 05:05:47,094 - django.db.backends - DEBUG - (0.000) SELECT "customer_customer"."id", "customer_customer"."password", "customer_customer"."last_login", "customer_customer"."is_superuser", "customer_customer"."first_name", "customer_customer"."middle_name", "customer_customer"."last_name", "customer_customer"."pan_no", "customer_customer"."email", "customer_customer"."is_active", "customer_customer"."is_staff", "customer_customer"."token_id" FROM "customer_customer" WHERE "customer_customer"."id" = 1 LIMIT 21; args=(1,); alias=default
-2023-03-01 05:05:47,094 - django.db.backends - DEBUG - (0.000) BEGIN; args=None; alias=default
-2023-03-01 05:05:47,095 - django.db.backends - DEBUG - (0.000) SELECT "customer_bankmaster"."bank_id", "customer_bankmaster"."bank_name", "customer_bankmaster"."bank_website", "customer_bankmaster"."bank_number", "customer_bankmaster"."bank_logo" FROM "customer_bankmaster" WHERE "customer_bankmaster"."bank_id" = 1 LIMIT 21; args=(1,); alias=default
-2023-03-01 05:05:47,101 - django.db.backends - DEBUG - (0.000) SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" WHERE ("django_content_type"."app_label" = 'customer' AND "django_content_type"."model" = 'bankmaster') LIMIT 21; args=('customer', 'bankmaster'); alias=default
-2023-03-01 05:05:47,211 - django.db.backends - DEBUG - (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2023-03-01 05:05:47.210287' AND "django_session"."session_key" = 'nipndlwhv6v8b8fny2s4p67qjsea4b1a') LIMIT 21; args=('2023-03-01 05:05:47.210287', 'nipndlwhv6v8b8fny2s4p67qjsea4b1a'); alias=default
-2023-03-01 05:05:47,212 - django.db.backends - DEBUG - (0.000) SELECT "customer_customer"."id", "customer_customer"."password", "customer_customer"."last_login", "customer_customer"."is_superuser", "customer_customer"."first_name", "customer_customer"."middle_name", "customer_customer"."last_name", "customer_customer"."pan_no", "customer_customer"."email", "customer_customer"."is_active", "customer_customer"."is_staff", "customer_customer"."token_id" FROM "customer_customer" WHERE "customer_customer"."id" = 1 LIMIT 21; args=(1,); alias=default
-2023-03-01 05:05:54,913 - django.db.backends - DEBUG - (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2023-03-01 05:05:54.912220' AND "django_session"."session_key" = 'nipndlwhv6v8b8fny2s4p67qjsea4b1a') LIMIT 21; args=('2023-03-01 05:05:54.912220', 'nipndlwhv6v8b8fny2s4p67qjsea4b1a'); alias=default
-2023-03-01 05:05:54,914 - django.db.backends - DEBUG - (0.000) SELECT "customer_customer"."id", "customer_customer"."password", "customer_customer"."last_login", "customer_customer"."is_superuser", "customer_customer"."first_name", "customer_customer"."middle_name", "customer_customer"."last_name", "customer_customer"."pan_no", "customer_customer"."email", "customer_customer"."is_active", "customer_customer"."is_staff", "customer_customer"."token_id" FROM "customer_customer" WHERE "customer_customer"."id" = 1 LIMIT 21; args=(1,); alias=default
-2023-03-01 05:05:54,914 - django.db.backends - DEBUG - (0.000) BEGIN; args=None; alias=default
-2023-03-01 05:05:54,915 - django.db.backends - DEBUG - (0.000) SELECT "customer_bankmaster"."bank_id", "customer_bankmaster"."bank_name", "customer_bankmaster"."bank_website", "customer_bankmaster"."bank_number", "customer_bankmaster"."bank_logo" FROM "customer_bankmaster" WHERE "customer_bankmaster"."bank_id" = 1 LIMIT 21; args=(1,); alias=default
-2023-03-01 05:05:55,924 - django.db.backends - DEBUG - (0.001) UPDATE "customer_bankmaster" SET "bank_name" = 'HDFC', "bank_website" = 'http://www.exqample.com', "bank_number" = '1234', "bank_logo" = 'bank_logo/Jishnu_Kumar_Srivastava_Photo.png' WHERE "customer_bankmaster"."bank_id" = 1; args=('HDFC', 'http://www.exqample.com', '1234', 'bank_logo/Jishnu_Kumar_Srivastava_Photo.png', 1); alias=default
-2023-03-01 05:05:55,926 - django.db.backends - DEBUG - (0.001) INSERT INTO "django_admin_log" ("action_time", "user_id", "content_type_id", "object_id", "object_repr", "action_flag", "change_message") VALUES ('2023-03-01 05:05:55.924959', 1, 9, '1', 'HDFC', 2, '[{"changed": {"fields": ["Bank logo"]}}]') RETURNING "django_admin_log"."id"; args=('2023-03-01 05:05:55.924959', 1, 9, '1', 'HDFC', 2, '[{"changed": {"fields": ["Bank logo"]}}]'); alias=default
-2023-03-01 05:05:55,941 - django.db.backends - DEBUG - (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2023-03-01 05:05:55.939274' AND "django_session"."session_key" = 'nipndlwhv6v8b8fny2s4p67qjsea4b1a') LIMIT 21; args=('2023-03-01 05:05:55.939274', 'nipndlwhv6v8b8fny2s4p67qjsea4b1a'); alias=default
-2023-03-01 05:05:55,942 - django.db.backends - DEBUG - (0.000) SELECT "customer_customer"."id", "customer_customer"."password", "customer_customer"."last_login", "customer_customer"."is_superuser", "customer_customer"."first_name", "customer_customer"."middle_name", "customer_customer"."last_name", "customer_customer"."pan_no", "customer_customer"."email", "customer_customer"."is_active", "customer_customer"."is_staff", "customer_customer"."token_id" FROM "customer_customer" WHERE "customer_customer"."id" = 1 LIMIT 21; args=(1,); alias=default
-2023-03-01 05:05:55,944 - django.db.backends - DEBUG - (0.000) SELECT COUNT(*) AS "__count" FROM "customer_bankmaster"; args=(); alias=default
-2023-03-01 05:05:55,944 - django.db.backends - DEBUG - (0.000) SELECT COUNT(*) AS "__count" FROM "customer_bankmaster"; args=(); alias=default
-2023-03-01 05:05:55,945 - django.db.backends - DEBUG - (0.000) SELECT "customer_bankmaster"."bank_id", "customer_bankmaster"."bank_name", "customer_bankmaster"."bank_website", "customer_bankmaster"."bank_number", "customer_bankmaster"."bank_logo" FROM "customer_bankmaster" ORDER BY "customer_bankmaster"."bank_id" ASC; args=(); alias=default
-2023-03-01 05:05:55,964 - django.db.backends - DEBUG - (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2023-03-01 05:05:55.963190' AND "django_session"."session_key" = 'nipndlwhv6v8b8fny2s4p67qjsea4b1a') LIMIT 21; args=('2023-03-01 05:05:55.963190', 'nipndlwhv6v8b8fny2s4p67qjsea4b1a'); alias=default
-2023-03-01 05:05:55,964 - django.db.backends - DEBUG - (0.000) SELECT "customer_customer"."id", "customer_customer"."password", "customer_customer"."last_login", "customer_customer"."is_superuser", "customer_customer"."first_name", "customer_customer"."middle_name", "customer_customer"."last_name", "customer_customer"."pan_no", "customer_customer"."email", "customer_customer"."is_active", "customer_customer"."is_staff", "customer_customer"."token_id" FROM "customer_customer" WHERE "customer_customer"."id" = 1 LIMIT 21; args=(1,); alias=default
-2023-03-01 05:06:00,162 - django.db.backends - DEBUG - (0.000) SELECT "authtoken_token"."key", "authtoken_token"."user_id", "authtoken_token"."created", "customer_customer"."id", "customer_customer"."password", "customer_customer"."last_login", "customer_customer"."is_superuser", "customer_customer"."first_name", "customer_customer"."middle_name", "customer_customer"."last_name", "customer_customer"."pan_no", "customer_customer"."email", "customer_customer"."is_active", "customer_customer"."is_staff", "customer_customer"."token_id" FROM "authtoken_token" INNER JOIN "customer_customer" ON ("authtoken_token"."user_id" = "customer_customer"."id") WHERE "authtoken_token"."key" = '5874ef8e207f72071c506ae2401e18f56d6fbc55' LIMIT 21; args=('5874ef8e207f72071c506ae2401e18f56d6fbc55',); alias=default
-2023-03-01 05:06:00,164 - django.db.backends - DEBUG - (0.000) SELECT "customer_customerbankaccount"."id", "customer_customerbankaccount"."account_number", "customer_customerbankaccount"."ifsc_code", "customer_customerbankaccount"."customer_id", "customer_customerbankaccount"."bank_id", "customer_customerbankaccount"."cheque_image", "customer_customerbankaccount"."branch_name", "customer_customerbankaccount"."is_cheque_verified", "customer_customerbankaccount"."name_as_per_bank_record", "customer_customerbankaccount"."verification_mode", "customer_customerbankaccount"."verification_status", "customer_customerbankaccount"."account_type", "customer_customerbankaccount"."is_active" FROM "customer_customerbankaccount" WHERE ("customer_customerbankaccount"."customer_id" = 16 AND "customer_customerbankaccount"."is_active"); args=(16,); alias=default
-2023-03-01 05:06:00,167 - django.db.backends - DEBUG - (0.000) SELECT "customer_bankmaster"."bank_id", "customer_bankmaster"."bank_name", "customer_bankmaster"."bank_website", "customer_bankmaster"."bank_number", "customer_bankmaster"."bank_logo" FROM "customer_bankmaster" WHERE "customer_bankmaster"."bank_id" = 3 LIMIT 21; args=(3,); alias=default
-2023-03-01 05:06:01,713 - django.db.backends - DEBUG - (0.001) SELECT "authtoken_token"."key", "authtoken_token"."user_id", "authtoken_token"."created", "customer_customer"."id", "customer_customer"."password", "customer_customer"."last_login", "customer_customer"."is_superuser", "customer_customer"."first_name", "customer_customer"."middle_name", "customer_customer"."last_name", "customer_customer"."pan_no", "customer_customer"."email", "customer_customer"."is_active", "customer_customer"."is_staff", "customer_customer"."token_id" FROM "authtoken_token" INNER JOIN "customer_customer" ON ("authtoken_token"."user_id" = "customer_customer"."id") WHERE "authtoken_token"."key" = '5874ef8e207f72071c506ae2401e18f56d6fbc55' LIMIT 21; args=('5874ef8e207f72071c506ae2401e18f56d6fbc55',); alias=default
-2023-03-01 05:06:01,715 - django.db.backends - DEBUG - (0.000) SELECT "customer_customerbankaccount"."id", "customer_customerbankaccount"."account_number", "customer_customerbankaccount"."ifsc_code", "customer_customerbankaccount"."customer_id", "customer_customerbankaccount"."bank_id", "customer_customerbankaccount"."cheque_image", "customer_customerbankaccount"."branch_name", "customer_customerbankaccount"."is_cheque_verified", "customer_customerbankaccount"."name_as_per_bank_record", "customer_customerbankaccount"."verification_mode", "customer_customerbankaccount"."verification_status", "customer_customerbankaccount"."account_type", "customer_customerbankaccount"."is_active" FROM "customer_customerbankaccount" WHERE ("customer_customerbankaccount"."customer_id" = 16 AND "customer_customerbankaccount"."is_active"); args=(16,); alias=default
-2023-03-01 05:06:01,718 - django.db.backends - DEBUG - (0.000) SELECT "customer_bankmaster"."bank_id", "customer_bankmaster"."bank_name", "customer_bankmaster"."bank_website", "customer_bankmaster"."bank_number", "customer_bankmaster"."bank_logo" FROM "customer_bankmaster" WHERE "customer_bankmaster"."bank_id" = 3 LIMIT 21; args=(3,); alias=default
-2023-03-01 05:06:03,777 - django.db.backends - DEBUG - (0.001) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2023-03-01 05:06:03.775498' AND "django_session"."session_key" = 'nipndlwhv6v8b8fny2s4p67qjsea4b1a') LIMIT 21; args=('2023-03-01 05:06:03.775498', 'nipndlwhv6v8b8fny2s4p67qjsea4b1a'); alias=default
-2023-03-01 05:06:03,779 - django.db.backends - DEBUG - (0.000) SELECT "customer_customer"."id", "customer_customer"."password", "customer_customer"."last_login", "customer_customer"."is_superuser", "customer_customer"."first_name", "customer_customer"."middle_name", "customer_customer"."last_name", "customer_customer"."pan_no", "customer_customer"."email", "customer_customer"."is_active", "customer_customer"."is_staff", "customer_customer"."token_id" FROM "customer_customer" WHERE "customer_customer"."id" = 1 LIMIT 21; args=(1,); alias=default
-2023-03-01 05:06:03,780 - django.db.backends - DEBUG - (0.000) BEGIN; args=None; alias=default
-2023-03-01 05:06:03,781 - django.db.backends - DEBUG - (0.000) SELECT "customer_bankmaster"."bank_id", "customer_bankmaster"."bank_name", "customer_bankmaster"."bank_website", "customer_bankmaster"."bank_number", "customer_bankmaster"."bank_logo" FROM "customer_bankmaster" WHERE "customer_bankmaster"."bank_id" = 3 LIMIT 21; args=(3,); alias=default
-2023-03-01 05:06:03,809 - django.db.backends - DEBUG - (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2023-03-01 05:06:03.807907' AND "django_session"."session_key" = 'nipndlwhv6v8b8fny2s4p67qjsea4b1a') LIMIT 21; args=('2023-03-01 05:06:03.807907', 'nipndlwhv6v8b8fny2s4p67qjsea4b1a'); alias=default
-2023-03-01 05:06:03,811 - django.db.backends - DEBUG - (0.000) SELECT "customer_customer"."id", "customer_customer"."password", "customer_customer"."last_login", "customer_customer"."is_superuser", "customer_customer"."first_name", "customer_customer"."middle_name", "customer_customer"."last_name", "customer_customer"."pan_no", "customer_customer"."email", "customer_customer"."is_active", "customer_customer"."is_staff", "customer_customer"."token_id" FROM "customer_customer" WHERE "customer_customer"."id" = 1 LIMIT 21; args=(1,); alias=default
-2023-03-01 05:06:08,148 - django.db.backends - DEBUG - (0.001) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2023-03-01 05:06:08.145047' AND "django_session"."session_key" = 'nipndlwhv6v8b8fny2s4p67qjsea4b1a') LIMIT 21; args=('2023-03-01 05:06:08.145047', 'nipndlwhv6v8b8fny2s4p67qjsea4b1a'); alias=default
-2023-03-01 05:06:08,150 - django.db.backends - DEBUG - (0.000) SELECT "customer_customer"."id", "customer_customer"."password", "customer_customer"."last_login", "customer_customer"."is_superuser", "customer_customer"."first_name", "customer_customer"."middle_name", "customer_customer"."last_name", "customer_customer"."pan_no", "customer_customer"."email", "customer_customer"."is_active", "customer_customer"."is_staff", "customer_customer"."token_id" FROM "customer_customer" WHERE "customer_customer"."id" = 1 LIMIT 21; args=(1,); alias=default
-2023-03-01 05:06:08,151 - django.db.backends - DEBUG - (0.000) BEGIN; args=None; alias=default
-2023-03-01 05:06:08,152 - django.db.backends - DEBUG - (0.000) SELECT "customer_bankmaster"."bank_id", "customer_bankmaster"."bank_name", "customer_bankmaster"."bank_website", "customer_bankmaster"."bank_number", "customer_bankmaster"."bank_logo" FROM "customer_bankmaster" WHERE "customer_bankmaster"."bank_id" = 3 LIMIT 21; args=(3,); alias=default
-2023-03-01 05:06:08,159 - django.db.backends - DEBUG - (0.001) UPDATE "customer_bankmaster" SET "bank_name" = 'Axis Bank', "bank_website" = 'http://ewer.rtyu.bhj', "bank_number" = '876545', "bank_logo" = 'bank_logo/Jishnu_Kumar_Srivastava_Photo_Rixvw6g.png' WHERE "customer_bankmaster"."bank_id" = 3; args=('Axis Bank', 'http://ewer.rtyu.bhj', '876545', 'bank_logo/Jishnu_Kumar_Srivastava_Photo_Rixvw6g.png', 3); alias=default
-2023-03-01 05:06:08,161 - django.db.backends - DEBUG - (0.001) INSERT INTO "django_admin_log" ("action_time", "user_id", "content_type_id", "object_id", "object_repr", "action_flag", "change_message") VALUES ('2023-03-01 05:06:08.160550', 1, 9, '3', 'Axis Bank', 2, '[{"changed": {"fields": ["Bank logo"]}}]') RETURNING "django_admin_log"."id"; args=('2023-03-01 05:06:08.160550', 1, 9, '3', 'Axis Bank', 2, '[{"changed": {"fields": ["Bank logo"]}}]'); alias=default
-2023-03-01 05:06:08,172 - django.db.backends - DEBUG - (0.001) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2023-03-01 05:06:08.170077' AND "django_session"."session_key" = 'nipndlwhv6v8b8fny2s4p67qjsea4b1a') LIMIT 21; args=('2023-03-01 05:06:08.170077', 'nipndlwhv6v8b8fny2s4p67qjsea4b1a'); alias=default
-2023-03-01 05:06:08,173 - django.db.backends - DEBUG - (0.000) SELECT "customer_customer"."id", "customer_customer"."password", "customer_customer"."last_login", "customer_customer"."is_superuser", "customer_customer"."first_name", "customer_customer"."middle_name", "customer_customer"."last_name", "customer_customer"."pan_no", "customer_customer"."email", "customer_customer"."is_active", "customer_customer"."is_staff", "customer_customer"."token_id" FROM "customer_customer" WHERE "customer_customer"."id" = 1 LIMIT 21; args=(1,); alias=default
-2023-03-01 05:06:08,174 - django.db.backends - DEBUG - (0.000) SELECT COUNT(*) AS "__count" FROM "customer_bankmaster"; args=(); alias=default
-2023-03-01 05:06:08,174 - django.db.backends - DEBUG - (0.000) SELECT COUNT(*) AS "__count" FROM "customer_bankmaster"; args=(); alias=default
-2023-03-01 05:06:08,176 - django.db.backends - DEBUG - (0.000) SELECT "customer_bankmaster"."bank_id", "customer_bankmaster"."bank_name", "customer_bankmaster"."bank_website", "customer_bankmaster"."bank_number", "customer_bankmaster"."bank_logo" FROM "customer_bankmaster" ORDER BY "customer_bankmaster"."bank_id" ASC; args=(); alias=default
-2023-03-01 05:06:08,191 - django.db.backends - DEBUG - (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2023-03-01 05:06:08.190268' AND "django_session"."session_key" = 'nipndlwhv6v8b8fny2s4p67qjsea4b1a') LIMIT 21; args=('2023-03-01 05:06:08.190268', 'nipndlwhv6v8b8fny2s4p67qjsea4b1a'); alias=default
-2023-03-01 05:06:08,191 - django.db.backends - DEBUG - (0.000) SELECT "customer_customer"."id", "customer_customer"."password", "customer_customer"."last_login", "customer_customer"."is_superuser", "customer_customer"."first_name", "customer_customer"."middle_name", "customer_customer"."last_name", "customer_customer"."pan_no", "customer_customer"."email", "customer_customer"."is_active", "customer_customer"."is_staff", "customer_customer"."token_id" FROM "customer_customer" WHERE "customer_customer"."id" = 1 LIMIT 21; args=(1,); alias=default
-2023-03-01 05:06:10,741 - django.db.backends - DEBUG - (0.001) SELECT "authtoken_token"."key", "authtoken_token"."user_id", "authtoken_token"."created", "customer_customer"."id", "customer_customer"."password", "customer_customer"."last_login", "customer_customer"."is_superuser", "customer_customer"."first_name", "customer_customer"."middle_name", "customer_customer"."last_name", "customer_customer"."pan_no", "customer_customer"."email", "customer_customer"."is_active", "customer_customer"."is_staff", "customer_customer"."token_id" FROM "authtoken_token" INNER JOIN "customer_customer" ON ("authtoken_token"."user_id" = "customer_customer"."id") WHERE "authtoken_token"."key" = '5874ef8e207f72071c506ae2401e18f56d6fbc55' LIMIT 21; args=('5874ef8e207f72071c506ae2401e18f56d6fbc55',); alias=default
-2023-03-01 05:06:10,742 - django.db.backends - DEBUG - (0.000) SELECT "customer_customerbankaccount"."id", "customer_customerbankaccount"."account_number", "customer_customerbankaccount"."ifsc_code", "customer_customerbankaccount"."customer_id", "customer_customerbankaccount"."bank_id", "customer_customerbankaccount"."cheque_image", "customer_customerbankaccount"."branch_name", "customer_customerbankaccount"."is_cheque_verified", "customer_customerbankaccount"."name_as_per_bank_record", "customer_customerbankaccount"."verification_mode", "customer_customerbankaccount"."verification_status", "customer_customerbankaccount"."account_type", "customer_customerbankaccount"."is_active" FROM "customer_customerbankaccount" WHERE ("customer_customerbankaccount"."customer_id" = 16 AND "customer_customerbankaccount"."is_active"); args=(16,); alias=default
-2023-03-01 05:06:10,744 - django.db.backends - DEBUG - (0.000) SELECT "customer_bankmaster"."bank_id", "customer_bankmaster"."bank_name", "customer_bankmaster"."bank_website", "customer_bankmaster"."bank_number", "customer_bankmaster"."bank_logo" FROM "customer_bankmaster" WHERE "customer_bankmaster"."bank_id" = 3 LIMIT 21; args=(3,); alias=default
-2023-03-01 09:14:16,402 - django.db.backends - DEBUG - (0.001) 
+2023-03-01 09:32:08,184 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:32:09,728 - django.db.backends - DEBUG - (0.000) 
             SELECT name, type FROM sqlite_master
             WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
             ORDER BY name; args=None; alias=default
-2023-03-01 09:14:16,410 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
-2023-03-01 09:14:37,183 - django.db.backends - DEBUG - (0.002) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2023-03-01 09:14:37.178528' AND "django_session"."session_key" = 'nipndlwhv6v8b8fny2s4p67qjsea4b1a') LIMIT 21; args=('2023-03-01 09:14:37.178528', 'nipndlwhv6v8b8fny2s4p67qjsea4b1a'); alias=default
-2023-03-01 09:14:37,185 - django.db.backends - DEBUG - (0.000) SELECT "customer_customer"."id", "customer_customer"."password", "customer_customer"."last_login", "customer_customer"."is_superuser", "customer_customer"."first_name", "customer_customer"."middle_name", "customer_customer"."last_name", "customer_customer"."pan_no", "customer_customer"."email", "customer_customer"."is_active", "customer_customer"."is_staff", "customer_customer"."token_id" FROM "customer_customer" WHERE "customer_customer"."id" = 1 LIMIT 21; args=(1,); alias=default
+2023-03-01 09:32:09,729 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:32:12,457 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:32:12,458 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:32:30,698 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:32:30,699 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:32:36,444 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:32:36,446 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:32:48,354 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:32:48,356 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:32:55,619 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:32:55,621 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:33:01,294 - django.db.backends - DEBUG - (0.001) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2023-03-01 09:33:01.289209' AND "django_session"."session_key" = 'nipndlwhv6v8b8fny2s4p67qjsea4b1a') LIMIT 21; args=('2023-03-01 09:33:01.289209', 'nipndlwhv6v8b8fny2s4p67qjsea4b1a'); alias=default
+2023-03-01 09:33:01,297 - django.db.backends - DEBUG - (0.000) SELECT "customer_customer"."id", "customer_customer"."password", "customer_customer"."last_login", "customer_customer"."is_superuser", "customer_customer"."first_name", "customer_customer"."middle_name", "customer_customer"."last_name", "customer_customer"."pan_no", "customer_customer"."email", "customer_customer"."is_active", "customer_customer"."is_staff", "customer_customer"."token_id" FROM "customer_customer" WHERE "customer_customer"."id" = 1 LIMIT 21; args=(1,); alias=default
+2023-03-01 09:33:01,336 - django.db.backends - DEBUG - (0.000) SELECT "django_admin_log"."id", "django_admin_log"."action_time", "django_admin_log"."user_id", "django_admin_log"."content_type_id", "django_admin_log"."object_id", "django_admin_log"."object_repr", "django_admin_log"."action_flag", "django_admin_log"."change_message", "customer_customer"."id", "customer_customer"."password", "customer_customer"."last_login", "customer_customer"."is_superuser", "customer_customer"."first_name", "customer_customer"."middle_name", "customer_customer"."last_name", "customer_customer"."pan_no", "customer_customer"."email", "customer_customer"."is_active", "customer_customer"."is_staff", "customer_customer"."token_id", "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_admin_log" INNER JOIN "customer_customer" ON ("django_admin_log"."user_id" = "customer_customer"."id") LEFT OUTER JOIN "django_content_type" ON ("django_admin_log"."content_type_id" = "django_content_type"."id") WHERE "django_admin_log"."user_id" = 1 ORDER BY "django_admin_log"."action_time" DESC LIMIT 10; args=(1,); alias=default
+2023-03-01 09:33:03,467 - django.db.backends - DEBUG - (0.001) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2023-03-01 09:33:03.463950' AND "django_session"."session_key" = 'nipndlwhv6v8b8fny2s4p67qjsea4b1a') LIMIT 21; args=('2023-03-01 09:33:03.463950', 'nipndlwhv6v8b8fny2s4p67qjsea4b1a'); alias=default
+2023-03-01 09:33:03,469 - django.db.backends - DEBUG - (0.000) SELECT "customer_customer"."id", "customer_customer"."password", "customer_customer"."last_login", "customer_customer"."is_superuser", "customer_customer"."first_name", "customer_customer"."middle_name", "customer_customer"."last_name", "customer_customer"."pan_no", "customer_customer"."email", "customer_customer"."is_active", "customer_customer"."is_staff", "customer_customer"."token_id" FROM "customer_customer" WHERE "customer_customer"."id" = 1 LIMIT 21; args=(1,); alias=default
+2023-03-01 09:33:03,478 - django.db.backends - DEBUG - (0.001) SELECT "django_admin_log"."id", "django_admin_log"."action_time", "django_admin_log"."user_id", "django_admin_log"."content_type_id", "django_admin_log"."object_id", "django_admin_log"."object_repr", "django_admin_log"."action_flag", "django_admin_log"."change_message", "customer_customer"."id", "customer_customer"."password", "customer_customer"."last_login", "customer_customer"."is_superuser", "customer_customer"."first_name", "customer_customer"."middle_name", "customer_customer"."last_name", "customer_customer"."pan_no", "customer_customer"."email", "customer_customer"."is_active", "customer_customer"."is_staff", "customer_customer"."token_id", "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_admin_log" INNER JOIN "customer_customer" ON ("django_admin_log"."user_id" = "customer_customer"."id") LEFT OUTER JOIN "django_content_type" ON ("django_admin_log"."content_type_id" = "django_content_type"."id") WHERE "django_admin_log"."user_id" = 1 ORDER BY "django_admin_log"."action_time" DESC LIMIT 10; args=(1,); alias=default
+2023-03-01 09:33:19,344 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:33:19,347 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:33:20,809 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:33:20,810 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:33:23,347 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:33:23,348 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:33:25,961 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:33:25,962 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:33:30,651 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:33:30,652 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:33:42,623 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:33:42,625 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:33:45,199 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:33:45,201 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:33:46,734 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:33:46,735 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:33:48,288 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:33:48,289 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:33:51,902 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:33:51,904 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:33:57,573 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:33:57,574 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:34:05,295 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:34:05,297 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:34:06,849 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:34:06,850 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:34:13,636 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:34:13,637 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:34:23,445 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:34:23,447 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:34:26,113 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:34:26,114 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:34:29,738 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:34:29,739 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:34:31,257 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:34:31,258 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:34:33,853 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:34:33,855 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:34:36,469 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:34:36,471 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:34:41,115 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:34:41,116 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:34:42,618 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:34:42,620 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:34:44,159 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:34:44,161 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:34:45,682 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:34:45,684 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:34:48,274 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:34:48,275 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:34:50,835 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:34:50,836 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:34:52,275 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:34:52,276 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:34:55,868 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:34:55,869 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:34:57,365 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:34:57,366 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:34:59,952 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:34:59,953 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:35:01,437 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:35:01,438 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:35:04,053 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:35:04,054 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:35:07,678 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:35:07,679 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:35:13,419 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:35:13,420 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:35:19,025 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:35:19,026 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:35:20,443 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:35:20,444 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:35:51,698 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:35:51,700 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:43:55,135 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:43:55,137 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:43:56,441 - django.db.backends - DEBUG - (0.001) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2023-03-01 09:43:56.438132' AND "django_session"."session_key" = 'nipndlwhv6v8b8fny2s4p67qjsea4b1a') LIMIT 21; args=('2023-03-01 09:43:56.438132', 'nipndlwhv6v8b8fny2s4p67qjsea4b1a'); alias=default
+2023-03-01 09:43:56,443 - django.db.backends - DEBUG - (0.000) SELECT "customer_customer"."id", "customer_customer"."password", "customer_customer"."last_login", "customer_customer"."is_superuser", "customer_customer"."first_name", "customer_customer"."middle_name", "customer_customer"."last_name", "customer_customer"."pan_no", "customer_customer"."email", "customer_customer"."is_active", "customer_customer"."is_staff", "customer_customer"."token_id" FROM "customer_customer" WHERE "customer_customer"."id" = 1 LIMIT 21; args=(1,); alias=default
+2023-03-01 09:43:56,530 - django.db.backends - DEBUG - (0.001) SELECT "django_admin_log"."id", "django_admin_log"."action_time", "django_admin_log"."user_id", "django_admin_log"."content_type_id", "django_admin_log"."object_id", "django_admin_log"."object_repr", "django_admin_log"."action_flag", "django_admin_log"."change_message", "customer_customer"."id", "customer_customer"."password", "customer_customer"."last_login", "customer_customer"."is_superuser", "customer_customer"."first_name", "customer_customer"."middle_name", "customer_customer"."last_name", "customer_customer"."pan_no", "customer_customer"."email", "customer_customer"."is_active", "customer_customer"."is_staff", "customer_customer"."token_id", "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_admin_log" INNER JOIN "customer_customer" ON ("django_admin_log"."user_id" = "customer_customer"."id") LEFT OUTER JOIN "django_content_type" ON ("django_admin_log"."content_type_id" = "django_content_type"."id") WHERE "django_admin_log"."user_id" = 1 ORDER BY "django_admin_log"."action_time" DESC LIMIT 10; args=(1,); alias=default
+2023-03-01 09:43:57,771 - django.db.backends - DEBUG - (0.001) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2023-03-01 09:43:57.767788' AND "django_session"."session_key" = 'nipndlwhv6v8b8fny2s4p67qjsea4b1a') LIMIT 21; args=('2023-03-01 09:43:57.767788', 'nipndlwhv6v8b8fny2s4p67qjsea4b1a'); alias=default
+2023-03-01 09:43:57,772 - django.db.backends - DEBUG - (0.000) SELECT "customer_customer"."id", "customer_customer"."password", "customer_customer"."last_login", "customer_customer"."is_superuser", "customer_customer"."first_name", "customer_customer"."middle_name", "customer_customer"."last_name", "customer_customer"."pan_no", "customer_customer"."email", "customer_customer"."is_active", "customer_customer"."is_staff", "customer_customer"."token_id" FROM "customer_customer" WHERE "customer_customer"."id" = 1 LIMIT 21; args=(1,); alias=default
+2023-03-01 09:43:57,782 - django.db.backends - DEBUG - (0.000) SELECT "django_admin_log"."id", "django_admin_log"."action_time", "django_admin_log"."user_id", "django_admin_log"."content_type_id", "django_admin_log"."object_id", "django_admin_log"."object_repr", "django_admin_log"."action_flag", "django_admin_log"."change_message", "customer_customer"."id", "customer_customer"."password", "customer_customer"."last_login", "customer_customer"."is_superuser", "customer_customer"."first_name", "customer_customer"."middle_name", "customer_customer"."last_name", "customer_customer"."pan_no", "customer_customer"."email", "customer_customer"."is_active", "customer_customer"."is_staff", "customer_customer"."token_id", "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_admin_log" INNER JOIN "customer_customer" ON ("django_admin_log"."user_id" = "customer_customer"."id") LEFT OUTER JOIN "django_content_type" ON ("django_admin_log"."content_type_id" = "django_content_type"."id") WHERE "django_admin_log"."user_id" = 1 ORDER BY "django_admin_log"."action_time" DESC LIMIT 10; args=(1,); alias=default
+2023-03-01 09:43:58,426 - django.db.backends - DEBUG - (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2023-03-01 09:43:58.425303' AND "django_session"."session_key" = 'nipndlwhv6v8b8fny2s4p67qjsea4b1a') LIMIT 21; args=('2023-03-01 09:43:58.425303', 'nipndlwhv6v8b8fny2s4p67qjsea4b1a'); alias=default
+2023-03-01 09:43:58,427 - django.db.backends - DEBUG - (0.000) SELECT "customer_customer"."id", "customer_customer"."password", "customer_customer"."last_login", "customer_customer"."is_superuser", "customer_customer"."first_name", "customer_customer"."middle_name", "customer_customer"."last_name", "customer_customer"."pan_no", "customer_customer"."email", "customer_customer"."is_active", "customer_customer"."is_staff", "customer_customer"."token_id" FROM "customer_customer" WHERE "customer_customer"."id" = 1 LIMIT 21; args=(1,); alias=default
+2023-03-01 09:43:58,432 - django.db.backends - DEBUG - (0.000) SELECT "django_admin_log"."id", "django_admin_log"."action_time", "django_admin_log"."user_id", "django_admin_log"."content_type_id", "django_admin_log"."object_id", "django_admin_log"."object_repr", "django_admin_log"."action_flag", "django_admin_log"."change_message", "customer_customer"."id", "customer_customer"."password", "customer_customer"."last_login", "customer_customer"."is_superuser", "customer_customer"."first_name", "customer_customer"."middle_name", "customer_customer"."last_name", "customer_customer"."pan_no", "customer_customer"."email", "customer_customer"."is_active", "customer_customer"."is_staff", "customer_customer"."token_id", "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_admin_log" INNER JOIN "customer_customer" ON ("django_admin_log"."user_id" = "customer_customer"."id") LEFT OUTER JOIN "django_content_type" ON ("django_admin_log"."content_type_id" = "django_content_type"."id") WHERE "django_admin_log"."user_id" = 1 ORDER BY "django_admin_log"."action_time" DESC LIMIT 10; args=(1,); alias=default
+2023-03-01 09:44:18,739 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:44:18,741 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:44:32,717 - django.db.backends - DEBUG - (0.001) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2023-03-01 09:44:32.713404' AND "django_session"."session_key" = 'nipndlwhv6v8b8fny2s4p67qjsea4b1a') LIMIT 21; args=('2023-03-01 09:44:32.713404', 'nipndlwhv6v8b8fny2s4p67qjsea4b1a'); alias=default
+2023-03-01 09:44:32,719 - django.db.backends - DEBUG - (0.000) SELECT "customer_customer"."id", "customer_customer"."password", "customer_customer"."last_login", "customer_customer"."is_superuser", "customer_customer"."first_name", "customer_customer"."middle_name", "customer_customer"."last_name", "customer_customer"."pan_no", "customer_customer"."email", "customer_customer"."is_active", "customer_customer"."is_staff", "customer_customer"."token_id" FROM "customer_customer" WHERE "customer_customer"."id" = 1 LIMIT 21; args=(1,); alias=default
+2023-03-01 09:44:32,753 - django.db.backends - DEBUG - (0.000) SELECT "django_admin_log"."id", "django_admin_log"."action_time", "django_admin_log"."user_id", "django_admin_log"."content_type_id", "django_admin_log"."object_id", "django_admin_log"."object_repr", "django_admin_log"."action_flag", "django_admin_log"."change_message", "customer_customer"."id", "customer_customer"."password", "customer_customer"."last_login", "customer_customer"."is_superuser", "customer_customer"."first_name", "customer_customer"."middle_name", "customer_customer"."last_name", "customer_customer"."pan_no", "customer_customer"."email", "customer_customer"."is_active", "customer_customer"."is_staff", "customer_customer"."token_id", "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_admin_log" INNER JOIN "customer_customer" ON ("django_admin_log"."user_id" = "customer_customer"."id") LEFT OUTER JOIN "django_content_type" ON ("django_admin_log"."content_type_id" = "django_content_type"."id") WHERE "django_admin_log"."user_id" = 1 ORDER BY "django_admin_log"."action_time" DESC LIMIT 10; args=(1,); alias=default
+2023-03-01 09:44:46,528 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:44:46,529 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:44:47,671 - django.db.backends - DEBUG - (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2023-03-01 09:44:47.670929' AND "django_session"."session_key" = 'nipndlwhv6v8b8fny2s4p67qjsea4b1a') LIMIT 21; args=('2023-03-01 09:44:47.670929', 'nipndlwhv6v8b8fny2s4p67qjsea4b1a'); alias=default
+2023-03-01 09:44:47,672 - django.db.backends - DEBUG - (0.000) SELECT "customer_customer"."id", "customer_customer"."password", "customer_customer"."last_login", "customer_customer"."is_superuser", "customer_customer"."first_name", "customer_customer"."middle_name", "customer_customer"."last_name", "customer_customer"."pan_no", "customer_customer"."email", "customer_customer"."is_active", "customer_customer"."is_staff", "customer_customer"."token_id" FROM "customer_customer" WHERE "customer_customer"."id" = 1 LIMIT 21; args=(1,); alias=default
+2023-03-01 09:44:47,685 - django.db.backends - DEBUG - (0.000) SELECT "django_admin_log"."id", "django_admin_log"."action_time", "django_admin_log"."user_id", "django_admin_log"."content_type_id", "django_admin_log"."object_id", "django_admin_log"."object_repr", "django_admin_log"."action_flag", "django_admin_log"."change_message", "customer_customer"."id", "customer_customer"."password", "customer_customer"."last_login", "customer_customer"."is_superuser", "customer_customer"."first_name", "customer_customer"."middle_name", "customer_customer"."last_name", "customer_customer"."pan_no", "customer_customer"."email", "customer_customer"."is_active", "customer_customer"."is_staff", "customer_customer"."token_id", "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_admin_log" INNER JOIN "customer_customer" ON ("django_admin_log"."user_id" = "customer_customer"."id") LEFT OUTER JOIN "django_content_type" ON ("django_admin_log"."content_type_id" = "django_content_type"."id") WHERE "django_admin_log"."user_id" = 1 ORDER BY "django_admin_log"."action_time" DESC LIMIT 10; args=(1,); alias=default
+2023-03-01 09:44:54,471 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:44:54,472 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:44:55,980 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:44:55,981 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:44:57,509 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:44:57,511 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:44:59,022 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:44:59,024 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:47:07,894 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:47:07,896 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:47:09,378 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:47:09,379 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:47:10,916 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:47:10,917 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:47:14,489 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:47:14,491 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:47:16,039 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:47:16,040 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:47:23,829 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:47:23,831 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:47:25,392 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:47:25,393 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:47:26,934 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:47:26,935 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:47:28,463 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:47:28,464 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:47:32,500 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:47:32,501 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:47:36,131 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:47:36,132 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:47:40,137 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:47:40,139 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:47:47,384 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:47:47,385 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:47:50,922 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:47:50,923 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:47:52,468 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:47:52,469 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:47:57,113 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:47:57,115 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:48:00,707 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:48:00,709 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:48:13,654 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:48:13,657 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:48:19,327 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:48:19,328 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:48:20,850 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:48:20,851 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:48:24,481 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:48:24,482 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:48:30,156 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:48:30,158 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:48:32,696 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:48:32,698 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:48:34,229 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:48:34,230 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:48:36,811 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:48:36,813 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:49:32,605 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:49:32,607 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:49:40,400 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:49:40,401 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:49:41,962 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:49:41,964 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:49:44,541 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:49:44,542 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:49:52,357 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:49:52,358 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:49:54,983 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:49:54,985 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:49:58,683 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:49:58,684 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:50:04,392 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:50:04,394 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:50:09,065 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:50:09,066 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:50:10,605 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:50:10,606 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:50:13,214 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:50:13,216 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:50:15,757 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:50:15,758 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:50:17,286 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:50:17,287 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:50:19,877 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:50:19,878 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default
+2023-03-01 09:50:21,402 - django.db.backends - DEBUG - (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None; alias=default
+2023-03-01 09:50:21,403 - django.db.backends - DEBUG - (0.000) SELECT "django_migrations"."id", "django_migrations"."app", "django_migrations"."name", "django_migrations"."applied" FROM "django_migrations"; args=(); alias=default

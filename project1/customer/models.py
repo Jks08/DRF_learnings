@@ -6,7 +6,7 @@ from django.urls import reverse
 # Create your models here.
 
 class CustomerManager(BaseUserManager):
-    def create_user(self, email, password=None, **extra_fields):
+    def create_user(self, email: str, password: str=None, **extra_fields):
         if not email:
             raise ValueError('The Email field must be set')
         email = self.normalize_email(email)
@@ -15,7 +15,7 @@ class CustomerManager(BaseUserManager):
         user.save()
         return user
 
-    def create_superuser(self, email, password=None, **extra_fields):
+    def create_superuser(self, email: str, password: str=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         return self.create_user(email, password, **extra_fields)
@@ -31,27 +31,27 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     username = None
     token = models.OneToOneField(Token, on_delete=models.CASCADE, null=True, blank=True)
 
-    def create_token(self):
-        token = Token.objects.create(user=self)
-        self.token = token
-        self.save()
-        return token
-    
     objects = CustomerManager()
 
     USERNAME_FIELD = 'email'
     EMAIL_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name', 'pan_no']
 
-    def __str__(self):
+    def create_token(self) -> Token:
+        token = Token.objects.create(user=self)
+        self.token = token
+        self.save()
+        return token
+
+    def __str__(self) -> str:
         return self.email
 
-    def get_full_name(self):
+    def get_full_name(self) -> str:
         if self.middle_name:
             return f"{self.first_name} {self.middle_name} {self.last_name}"
         return f"{self.first_name} {self.last_name}"
 
-    def get_short_name(self):
+    def get_short_name(self) -> str:
         return self.first_name
 
 class BankMaster(models.Model):
@@ -61,7 +61,7 @@ class BankMaster(models.Model):
     bank_number = models.CharField(max_length=20, blank=True, null=True)
     bank_logo = models.ImageField(upload_to='bank_logo', blank=True, null=True)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.bank_name
     
 class CustomerBankAccount(models.Model):
@@ -78,10 +78,10 @@ class CustomerBankAccount(models.Model):
     account_type = models.CharField(choices=(('Savings', 'Savings'), ('Current', 'Current')), max_length=20)
     is_active = models.BooleanField(default=True)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.account_number
     
-    def account_number_ifsc_code(self):
+    def account_number_ifsc_code(self) -> str:
         try:
             return self.ifsc_code +'_'+self.account_number
         except CustomerBankAccount.DoesNotExist:

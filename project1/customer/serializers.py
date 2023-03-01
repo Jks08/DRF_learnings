@@ -14,7 +14,7 @@ class CustomerSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id','email', 'first_name', 'middle_name', 'last_name', 'pan_no', 'password')
 
-    def create(self, validated_data):
+    def create(self, validated_data: dict[str, any]) -> User:
         password = validated_data.pop('password')
         user = User.objects.create_user(password=password, **validated_data)
         return user
@@ -31,7 +31,7 @@ class CustomerBankAccountSerializer(serializers.ModelSerializer):
         model = CustomerBankAccount
         fields = ['id',"account_number","ifsc_code", "customer", "bank", "cheque_image", "branch_name", "name_as_per_bank_record","account_type","is_active", "bank_logo", "verification_status"]
 
-    def to_representation(self, instance):
+    def to_representation(self, instance: CustomerBankAccount) -> dict[str, any]:
         representation = super().to_representation(instance)
         bank = instance.bank
         logo = bank.bank_logo
@@ -39,7 +39,7 @@ class CustomerBankAccountSerializer(serializers.ModelSerializer):
             representation['bank_logo'] = os.path.join(settings.MEDIA_ROOT, logo.url)
         return representation
 
-    def validate(self, attrs):
+    def validate(self, attrs: dict[str, any]) -> dict[str, any]:
         if not self.instance:
             attrs['customer'] = self.context['request'].user
             if CustomerBankAccount.objects.filter(customer=attrs['customer']).count() >= 4:
@@ -56,7 +56,7 @@ class CustomerBankAccountSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError("Account number and IFSC code already exists.")
         return super().validate(attrs)
     
-    def update(self, instance, validated_data):
+    def update(self, instance: CustomerBankAccount, validated_data: dict[str, any]) -> CustomerBankAccount:
         if instance.is_active:
             if instance.verification_status != 'Verified':
                 instance.ifsc_code = validated_data.get('ifsc_code', instance.ifsc_code)
@@ -69,8 +69,3 @@ class CustomerBankAccountSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError("Account is already verified. You cannot update it.")
         else:
             raise serializers.ValidationError("Account is not active. You cannot update it.")
-
-
-
-
-    

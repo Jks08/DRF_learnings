@@ -17,7 +17,7 @@ class CustomAuthToken(APIView):
     authentication_classes = []
     permission_classes = [permissions.AllowAny]
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs) -> Response:
         email = request.data.get('email')
         password = request.data.get('password')
         user = authenticate(email=email, password=password)
@@ -38,14 +38,14 @@ class CustomerViewSet(viewsets.ModelViewSet):
     filterset_class = CustomerFilter
     search_fields = ['email', 'first_name', 'last_name', 'pan_no']
 
-    def get_permissions(self):
+    def get_permissions(self) -> list[permissions.BasePermission]:
         if self.action == 'create':
             permission_classes = []
         else:
             permission_classes = [permissions.IsAuthenticated]
         return [permission() for permission in permission_classes]
 
-    def get_queryset(self):
+    def get_queryset(self) -> Customer:
         if self.action == 'create':
             return Customer.objects.none()
         elif self.request.user.is_authenticated:
@@ -53,28 +53,28 @@ class CustomerViewSet(viewsets.ModelViewSet):
         else:
             return Customer.objects.none()
 
-    def get_object(self):
+    def get_object(self) -> Customer:
         if self.action == 'create':
             return None
         else:
             return self.request.user
 
-    def perform_create(self, serializer):
+    def perform_create(self, serializer: CustomerSerializer) -> None:
         serializer.save()
 
-    def perform_update(self, serializer):
+    def perform_update(self, serializer: CustomerSerializer) -> None:
         serializer.save()
 
-    def perform_destroy(self, instance):
+    def perform_destroy(self, instance: Customer) -> None:
         instance.delete()
 
-    def retrieve(self, request, *args, **kwargs):
+    def retrieve(self, request, *args, **kwargs) -> Response:
         return super().retrieve(request, *args, **kwargs)
 
-    def update(self, request, *args, **kwargs):
+    def update(self, request, *args, **kwargs) -> Response:
         return super().update(request, *args, **kwargs)
 
-    def partial_update(self, request, *args, **kwargs):
+    def partial_update(self, request, *args, **kwargs) -> Response:
         return super().partial_update(request, *args, **kwargs)
 
 
@@ -84,7 +84,7 @@ class CustomerBankAccountViewSet(viewsets.ModelViewSet):
     authentication_classes = [authentication.TokenAuthentication]
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-    def create(self, request, *args, **kwargs):
+    def create(self, request, *args, **kwargs) -> Response:
         if not self.request.user.is_authenticated:
             return Response({'error': 'You are not authenticated.'}, status=status.HTTP_401_UNAUTHORIZED)
         else:
@@ -94,13 +94,13 @@ class CustomerBankAccountViewSet(viewsets.ModelViewSet):
             headers = self.get_success_headers(serializer.data)
             return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
     
-    def get_queryset(self):
+    def get_queryset(self) -> CustomerBankAccount:
         if self.request.user.is_authenticated:
             return CustomerBankAccount.objects.filter(customer=self.request.user, is_active=True)
         else:
             return CustomerBankAccount.objects.none()
         
-    def update(self, request, *args, **kwargs):
+    def update(self, request, *args, **kwargs) -> Response:
         if not self.request.user.is_authenticated:
             return Response({'error': 'You are not authenticated.'}, status=status.HTTP_401_UNAUTHORIZED)
         else:
@@ -116,18 +116,18 @@ class BankMasterViewSet(viewsets.ModelViewSet):
     queryset = BankMaster.objects.all()
     serializer_class = BankMasterSerializer
 
-    def get_permissions(self):
+    def get_permissions(self) -> list[permissions.BasePermission]:
         if self.action == 'create' or self.action=='update':
             permission_classes = [permissions.IsAdminUser]
         else:
             permission_classes = [permissions.IsAuthenticatedOrReadOnly]
         return [permission() for permission in permission_classes]
 
-    def create(self, request, *args, **kwargs):
+    def create(self, request, *args, **kwargs) -> Response:
         return super().create(request, *args, **kwargs)
     
-    def list(self, request, *args, **kwargs):
+    def list(self, request, *args, **kwargs) -> Response:
         return super().list(request, *args, **kwargs)
     
-    def update(self, request, *args, **kwargs):
+    def update(self, request, *args, **kwargs) -> Response:
         return super().update(request, *args, **kwargs)
