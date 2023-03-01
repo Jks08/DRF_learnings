@@ -3,6 +3,7 @@ from django.forms import ModelForm
 from django.http.request import HttpRequest
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from customer.models import Customer, CustomerBankAccount, BankMaster
+from typing import List
 
 # Register your models here.
 
