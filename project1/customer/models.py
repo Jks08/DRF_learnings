@@ -59,8 +59,7 @@ class BankMaster(models.Model):
     bank_name = models.CharField(max_length=100)
     bank_website = models.URLField(max_length=200, blank=True, null=True)
     bank_number = models.CharField(max_length=20, blank=True, null=True)
-    # bank_logo = models.ImageField(upload_to='bank_logo', blank=True, null=True)
-    bank_logo = models.CharField(max_length=200, blank=True, null=True)
+    bank_logo = models.ImageField(upload_to='bank_logo', blank=True, null=True)
 
     def __str__(self):
         return self.bank_name

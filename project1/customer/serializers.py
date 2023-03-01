@@ -1,7 +1,9 @@
+from django.conf import settings
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
 from customer.models import Customer, BankMaster, CustomerBankAccount
+import os
 
 User = Customer
 
@@ -31,10 +33,10 @@ class CustomerBankAccountSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        request = self.context.get('request')
-        if request.method == 'GET':
-            bank = instance.bank
-            representation['bank_logo'] = bank.bank_logo
+        bank = instance.bank
+        logo = bank.bank_logo
+        if logo:
+            representation['bank_logo'] = os.path.join(settings.MEDIA_ROOT, logo.url)
         return representation
 
     def validate(self, attrs):
