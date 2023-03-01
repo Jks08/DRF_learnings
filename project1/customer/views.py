@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate
 from rest_framework.decorators import renderer_classes
 from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
+from django.db import IntegrityError
 from typing import List
 
 from customer.models import Customer, CustomerBankAccount, BankMaster
@@ -89,11 +90,14 @@ class CustomerBankAccountViewSet(viewsets.ModelViewSet):
         if not self.request.user.is_authenticated:
             return Response({'error': 'You are not authenticated.'}, status=status.HTTP_401_UNAUTHORIZED)
         else:
-            serializer = self.get_serializer(data=request.data)
-            serializer.is_valid(raise_exception=True)
-            self.perform_create(serializer)
-            headers = self.get_success_headers(serializer.data)
-            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+            try:
+                serializer = self.get_serializer(data=request.data)
+                serializer.is_valid(raise_exception=True)
+                self.perform_create(serializer)
+                headers = self.get_success_headers(serializer.data)
+                return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+            except IntegrityError:
+                return Response({'Created': 'Bank account created.'})
     
     def get_queryset(self) -> CustomerBankAccount:
         if self.request.user.is_authenticated:

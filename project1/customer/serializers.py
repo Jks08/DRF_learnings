@@ -43,6 +43,25 @@ class CustomerBankAccountSerializer(serializers.ModelSerializer):
     def validate(self, attrs: Dict[str, any]) -> Dict[str, any]:
         if not self.instance:
             attrs['customer'] = self.context['request'].user
+
+            existing_accounts  = CustomerBankAccount.objects.filter(
+                customer = attrs['customer'],
+                ifsc_code = attrs['ifsc_code'],
+                account_number = attrs['account_number'],
+                bank = attrs['bank']
+            )
+            if existing_accounts.exists():
+                existing_account = existing_accounts.first()
+                CustomerBankAccount.objects.filter(customer=attrs['customer'], is_active=True).update(is_active=False)
+                existing_account.is_active = True
+                try:
+                    existing_account.save()
+                except Exception as e:
+                    pass
+                attrs['id'] = existing_account.id
+                attrs['is_active'] = True
+                return attrs
+
             if CustomerBankAccount.objects.filter(customer=attrs['customer']).count() >= 4:
                 raise serializers.ValidationError("You can only add maximum 4 accounts.")
         
