@@ -100,6 +100,9 @@ class CustomerBankAccount(models.Model):
     
     def save(self, *args, **kwargs):
         try:
+            # In this transaction.atomic() is being used as a context manager 
+            # to ensure that the database changes made are atomic. Complete 
+            # rollback if any error occurs.
             with transaction.atomic():
                 super().save(*args, **kwargs)
         except IntegrityError:
