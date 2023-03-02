@@ -89,14 +89,11 @@ class CustomerBankAccountViewSet(viewsets.ModelViewSet):
         if not self.request.user.is_authenticated:
             return Response({'error': 'You are not authenticated.'}, status=status.HTTP_401_UNAUTHORIZED)
         else:
-            try:
-                instance = self.get_object()
-                serializer = self.get_serializer(instance, data=request.data, partial=True)
-                serializer.is_valid(raise_exception=True)
-                self.perform_update(serializer)
-                return Response(serializer.data)
-            except IntegrityError as e:
-                return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            instance = self.get_object()
+            serializer = self.get_serializer(instance, data=request.data, partial=True)
+            serializer.is_valid(raise_exception=True)
+            self.perform_update(serializer)
+            return Response(serializer.data)
         
 class BankMasterViewSet(viewsets.ModelViewSet):
     queryset = BankMaster.objects.all()

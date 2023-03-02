@@ -40,23 +40,6 @@ class CustomerBankAccountSerializer(serializers.ModelSerializer):
         if logo:
             representation['bank_logo'] = os.path.join(settings.MEDIA_ROOT, logo.url)
         return representation
-
-    def validate_existing_account(self, attrs: Dict[str, any]) -> Dict[str, any]:
-        attrs['customer'] = self.context['request'].user
-        existing_accounts  = CustomerBankAccount.objects.filter(
-            customer=attrs['customer'],
-            ifsc_code = attrs['ifsc_code'],
-            account_number = attrs['account_number'],
-        ).first()
-
-        if existing_accounts:
-            existing_account = existing_accounts
-            CustomerBankAccount.objects.filter(customer=attrs['customer'], is_active=True).update(is_active=False)
-            existing_account.is_active = True
-            existing_account.save()
-            attrs['id'] = existing_account.id
-            attrs['is_active'] = True
-            return attrs
         
     def validate_number_of_accounts(self, attrs: Dict[str, any]) -> Dict[str, any]:
         if CustomerBankAccount.objects.filter(customer=attrs['customer']).count() >= settings.MAX_ACCOUNTS_PER_CUSTOMER:
@@ -80,16 +63,14 @@ class CustomerBankAccountSerializer(serializers.ModelSerializer):
             account_number = attrs.get('account_number')
             ifsc_code = attrs.get('ifsc_code')
 
-            # Use validate_existing_account method to check if account already exists
-            existing_account = self.validate_existing_account(attrs)
-            if existing_account:
-                return existing_account
+            existing_customer = CustomerBankAccount.activate_existin_account(account_number, ifsc_code, attrs['customer'])
+            if existing_customer:
+                attrs['is_active'] = True
+                self.instance = existing_customer
+
             else:
-                # Use validate_number_of_accounts method to check if max number of accounts is reached
                 self.validate_number_of_accounts(attrs)
-                # Use validate_set_current_account_as_active method to set current account as active
                 self.validate_set_current_account_as_active(attrs)
-                # Use validate_account_number_and_ifsc_code method to check if account number and ifsc code already exists
                 self.validate_account_number_and_ifsc_code(attrs)
 
         return super().validate(attrs)

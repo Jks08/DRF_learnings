@@ -79,30 +79,35 @@ class CustomerBankAccount(models.Model):
     account_type = models.CharField(choices=(('Savings', 'Savings'), ('Current', 'Current')), max_length=20)
     is_active = models.BooleanField(default=True)
 
-    # class Meta:
-    #     constraints = [
-    #         models.UniqueConstraint(fields=['account_number', 'ifsc_code'], name='unique_account_number_ifsc_code')
-    #     ]
+    
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['account_number', 'ifsc_code'], name='unique_account_number_ifsc_code')
+        ]
 
-    # @classmethod
-    # def check_if_account_number_ifsc_code_exists(cls, account_number: str, ifsc_code: str) -> str:
-    #     try:
-    #         cls.objects.get(account_number=account_number, ifsc_code=ifsc_code)
-    #         cls.objects.filter(customer=cls.customer, account_number=account_number, ifsc_code=ifsc_code).update(is_active=True)
-    #         cls.objects.filter(customer=cls.customer, account_number=account_number, ifsc_code=ifsc_code).exclude(is_active=True).update(is_active=False)
-    #         cls.save()
-    #         return "Created"
-    #     except cls.DoesNotExist:
-    #         return "Does Not Exist"
+    @classmethod
+    def activate_existin_account(cls, account_number, ifsc_code, customer):
+        existing_customer = cls.objects.filter(customer=customer)
+        existing_accounts = existing_customer.filter(account_number=account_number, ifsc_code=ifsc_code)
+        if existing_accounts:
+            existing_account = existing_accounts[0]
+            existing_account.is_active = True
+            existing_account.save(update_fields=['is_active'])
 
-    def validate_unique(self, exclude=None):
+            cls.objects.filter(customer=customer).exclude(id=existing_account.id).update(is_active=False)
+            return existing_account
+        return None
+    
+    def save(self, *args, **kwargs):
         try:
-            super().validate_unique(exclude)
-        except IntegrityError as e:
-            raise serializers.ValidationError({'account_number': 'Account number already exists'})
-        except Exception as e:
-            raise e
-
+            with transaction.atomic():
+                super().save(*args, **kwargs)
+        except IntegrityError:
+            existing_account = self.activate_existin_account(self.account_number, self.ifsc_code, self.customer)
+            if existing_account:
+                return existing_account
+        
+    
     def __str__(self) -> str:
         return self.account_number
     
