@@ -1,7 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from rest_framework.authtoken.models import Token
-from django.urls import reverse
+from django.db import transaction, IntegrityError
+from rest_framework import serializers
 
 # Create your models here.
 
@@ -78,6 +79,30 @@ class CustomerBankAccount(models.Model):
     account_type = models.CharField(choices=(('Savings', 'Savings'), ('Current', 'Current')), max_length=20)
     is_active = models.BooleanField(default=True)
 
+    # class Meta:
+    #     constraints = [
+    #         models.UniqueConstraint(fields=['account_number', 'ifsc_code'], name='unique_account_number_ifsc_code')
+    #     ]
+
+    # @classmethod
+    # def check_if_account_number_ifsc_code_exists(cls, account_number: str, ifsc_code: str) -> str:
+    #     try:
+    #         cls.objects.get(account_number=account_number, ifsc_code=ifsc_code)
+    #         cls.objects.filter(customer=cls.customer, account_number=account_number, ifsc_code=ifsc_code).update(is_active=True)
+    #         cls.objects.filter(customer=cls.customer, account_number=account_number, ifsc_code=ifsc_code).exclude(is_active=True).update(is_active=False)
+    #         cls.save()
+    #         return "Created"
+    #     except cls.DoesNotExist:
+    #         return "Does Not Exist"
+
+    def validate_unique(self, exclude=None):
+        try:
+            super().validate_unique(exclude)
+        except IntegrityError as e:
+            raise serializers.ValidationError({'account_number': 'Account number already exists'})
+        except Exception as e:
+            raise e
+
     def __str__(self) -> str:
         return self.account_number
     
@@ -87,9 +112,6 @@ class CustomerBankAccount(models.Model):
         except CustomerBankAccount.DoesNotExist:
             return None
         
-    @classmethod
-    def get_account_number_ifsc_code(cls, account_number: str, ifsc_code: str) -> str:
-        try:
-            return cls.objects.get(account_number=account_number, ifsc_code=ifsc_code)
-        except CustomerBankAccount.DoesNotExist:
-            return None
+
+
+        
