@@ -43,16 +43,13 @@ class CustomerBankAccountSerializer(serializers.ModelSerializer):
             attrs['customer'] = self.context['request'].user
 
             existing_accounts  = CustomerBankAccount.objects.filter(
-                customer = attrs['customer'],
                 ifsc_code = attrs['ifsc_code'],
                 account_number = attrs['account_number'],
-                bank = attrs['bank'],
-                branch_name = attrs['branch_name'],
-                name_as_per_bank_record = attrs['name_as_per_bank_record'],
-                account_type = attrs['account_type']
-            )
-            if existing_accounts.exists():
-                existing_account = existing_accounts.first()
+                bank = attrs['bank']
+            ).first()
+
+            if existing_accounts:
+                existing_account = existing_accounts
                 CustomerBankAccount.objects.filter(customer=attrs['customer'], is_active=True).update(is_active=False)
                 existing_account.is_active = True
                 existing_account.save()

@@ -86,3 +86,10 @@ class CustomerBankAccount(models.Model):
             return self.ifsc_code +'_'+self.account_number
         except CustomerBankAccount.DoesNotExist:
             return None
+        
+    @classmethod
+    def get_account_number_ifsc_code(cls, account_number: str, ifsc_code: str) -> str:
+        try:
+            return cls.objects.get(account_number=account_number, ifsc_code=ifsc_code)
+        except CustomerBankAccount.DoesNotExist:
+            return None
