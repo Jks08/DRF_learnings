@@ -10,6 +10,7 @@ The main project files and directories are in [project1](https://github.com/Jks0
 - [X] Required Fields to create bank account {"customer", "name_as_per_bank_record", "ifsc_code", "account_number", "account_type", bank", "branch_name"}
 - [X] Bank Logo should be fetch in response only.
 - [X] One customer can have only one account in one bank
+- [X] If data is sent to create a bank account via POST and it exactly matches data present in a bank account with is_active=False, make it the active bank account and deactivate others.
 
 # Some Pointers to Note
 
