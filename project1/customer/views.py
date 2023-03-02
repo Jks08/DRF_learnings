@@ -97,7 +97,7 @@ class CustomerBankAccountViewSet(viewsets.ModelViewSet):
                 headers = self.get_success_headers(serializer.data)
                 return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
             except IntegrityError:
-                return Response({'Created': 'Bank account created.'})
+                return Response({'Created': 'Bank account created.'}, status=status.HTTP_201_CREATED)
     
     def get_queryset(self) -> CustomerBankAccount:
         if self.request.user.is_authenticated:

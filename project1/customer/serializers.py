@@ -1,7 +1,5 @@
 from django.conf import settings
 from rest_framework import serializers
-from django.contrib.auth import get_user_model
-from django.contrib.auth.hashers import make_password
 from customer.models import Customer, BankMaster, CustomerBankAccount
 from typing import Dict
 import os
@@ -48,16 +46,16 @@ class CustomerBankAccountSerializer(serializers.ModelSerializer):
                 customer = attrs['customer'],
                 ifsc_code = attrs['ifsc_code'],
                 account_number = attrs['account_number'],
-                bank = attrs['bank']
+                bank = attrs['bank'],
+                branch_name = attrs['branch_name'],
+                name_as_per_bank_record = attrs['name_as_per_bank_record'],
+                account_type = attrs['account_type']
             )
             if existing_accounts.exists():
                 existing_account = existing_accounts.first()
                 CustomerBankAccount.objects.filter(customer=attrs['customer'], is_active=True).update(is_active=False)
                 existing_account.is_active = True
-                try:
-                    existing_account.save()
-                except Exception as e:
-                    pass
+                existing_account.save()
                 attrs['id'] = existing_account.id
                 attrs['is_active'] = True
                 return attrs
