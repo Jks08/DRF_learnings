@@ -22,8 +22,9 @@ class Command(BaseCommand):
                     bank_object.bank_number = bank_number
                     bank_object.save()
                     self.stdout.write(self.style.WARNING(f'Updated following: {bank_id, bank_name, bank_website, bank_logo, bank_number}'))
-                except:
+                except BankMaster.DoesNotExist:
                     bank_object = BankMaster.objects.create(bank_id=bank_id, bank_name=bank_name, bank_website=bank_website, bank_logo=bank_logo,bank_number=bank_number)
                     self.stdout.write(self.style.SUCCESS(f'Created {bank_name} with the following details\n: {bank_id, bank_name, bank_website, bank_logo, bank_number}'))
+
 
 
