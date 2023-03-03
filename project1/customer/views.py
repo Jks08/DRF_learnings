@@ -62,7 +62,6 @@ class CustomerViewSet(viewsets.ModelViewSet):
             return self.request.user
 
 
-
 class CustomerBankAccountViewSet(viewsets.ModelViewSet):
     queryset = CustomerBankAccount.objects.all()
     serializer_class = CustomerBankAccountSerializer

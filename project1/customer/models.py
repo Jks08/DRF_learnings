@@ -86,7 +86,7 @@ class CustomerBankAccount(models.Model):
         ]
 
     @classmethod
-    def activate_existin_account(cls, account_number, ifsc_code, customer):
+    def activate_existing_account(cls, account_number, ifsc_code, customer):
         existing_customer = cls.objects.filter(customer=customer)
         existing_accounts = existing_customer.filter(account_number=account_number, ifsc_code=ifsc_code)
         if existing_accounts:
@@ -97,18 +97,6 @@ class CustomerBankAccount(models.Model):
             cls.objects.filter(customer=customer).exclude(id=existing_account.id).update(is_active=False)
             return existing_account
         return None
-    
-    def save(self, *args, **kwargs):
-        try:
-            # In this transaction.atomic() is being used as a context manager 
-            # to ensure that the database changes made are atomic. Complete 
-            # rollback if any error occurs.
-            with transaction.atomic():
-                super().save(*args, **kwargs)
-        except IntegrityError:
-            existing_account = self.activate_existin_account(self.account_number, self.ifsc_code, self.customer)
-            if existing_account:
-                return existing_account
         
     
     def __str__(self) -> str:

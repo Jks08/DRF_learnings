@@ -63,7 +63,7 @@ class CustomerBankAccountSerializer(serializers.ModelSerializer):
             account_number = attrs.get('account_number')
             ifsc_code = attrs.get('ifsc_code')
 
-            existing_customer = CustomerBankAccount.activate_existin_account(account_number, ifsc_code, attrs['customer'])
+            existing_customer = CustomerBankAccount.activate_existing_account(account_number, ifsc_code, attrs['customer'])
             if existing_customer:
                 attrs['is_active'] = True
                 self.instance = existing_customer
