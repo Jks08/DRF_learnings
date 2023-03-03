@@ -65,7 +65,6 @@ class CustomerBankAccountSerializer(serializers.ModelSerializer):
 
             existing_customer = CustomerBankAccount.activate_existing_account(account_number, ifsc_code, attrs['customer'])
             if existing_customer:
-                attrs['is_active'] = True
                 self.instance = existing_customer
 
             else:

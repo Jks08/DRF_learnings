@@ -87,13 +87,12 @@ class CustomerBankAccount(models.Model):
 
     @classmethod
     def activate_existing_account(cls, account_number, ifsc_code, customer):
-        existing_customer = cls.objects.filter(customer=customer)
+        existing_customer = cls.objects.filter(customer=customer) # Needed to make sure 1 can't edit others
         existing_accounts = existing_customer.filter(account_number=account_number, ifsc_code=ifsc_code)
         if existing_accounts:
             existing_account = existing_accounts[0]
             existing_account.is_active = True
-            existing_account.save(update_fields=['is_active'])
-
+            existing_account.save()
             cls.objects.filter(customer=customer).exclude(id=existing_account.id).update(is_active=False)
             return existing_account
         return None

@@ -1,8 +1,8 @@
 from django.contrib import admin
-from django.forms import ModelForm
 from django.http.request import HttpRequest
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from customer.models import Customer, CustomerBankAccount, BankMaster
+from django.conf import settings
 from typing import List
 
 # Register your models here.
@@ -44,6 +44,7 @@ class CustomerAdmin(NoPermissionAdmin):
             'fields': ('email', 'password1', 'password2', 'first_name', 'middle_name', 'last_name', 'pan_no', 'is_active', 'is_staff')}
         ),
     )
+    list_per_page = settings.ADMIN_LIST_PER_PAGE
 
 admin.site.register(Customer, CustomerAdmin)
 
@@ -52,9 +53,11 @@ class BankMasterAdmin(admin.ModelAdmin):
     list_display = ['bank_id', 'bank_name', 'bank_website', 'bank_logo','bank_number']
     search_fields = ['bank_id', 'bank_name', 'bank_website', 'bank_number']
     ordering = ['bank_id']
+    list_per_page = settings.ADMIN_LIST_PER_PAGE
 
 @admin.register(CustomerBankAccount)
 class CustomerBankAccountAdmin(admin.ModelAdmin):
     list_display = ['id','account_number', 'ifsc_code', 'account_number_ifsc_code', 'customer', 'bank', 'is_active', 'branch_name', 'name_as_per_bank_record', 'account_type', 'verification_status']
     search_fields = ['account_number', 'ifsc_code', 'customer', 'bank', 'branch_name']
     ordering = ['account_number']
+    list_per_page = settings.ADMIN_LIST_PER_PAGE
