@@ -66,5 +66,4 @@ class CustomerBankAccountAdmin(admin.ModelAdmin):
 
 @admin.register(AMC)
 class AMCAdmin(admin.ModelAdmin):
-    # Keep the default permissions
     pass

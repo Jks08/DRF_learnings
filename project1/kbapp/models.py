@@ -1,7 +1,7 @@
 from django.db import models
 import datetime
 
-from core.models import BaseField
+from base.models import BaseField
 
 # Create your models here.
 
@@ -39,3 +39,8 @@ class AMC(BaseField):
 
     def __str__(self):
         return self.name
+    
+    class Meta:
+        db_table = 'kbapp_amc'
+
+    

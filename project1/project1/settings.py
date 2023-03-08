@@ -44,8 +44,9 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework.filters',
     'customer',
-    'core',
+    'base',
     'kbapp',
+    'kbapp.mutualfunds',
 ]
 
 REST_FRAMEWORK = {
