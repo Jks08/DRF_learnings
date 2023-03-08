@@ -2,6 +2,8 @@ from django.contrib import admin
 from django.http.request import HttpRequest
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from customer.models import Customer, CustomerBankAccount, BankMaster
+from kbapp.models import AMC
+
 from django.conf import settings
 from typing import List
 
@@ -61,3 +63,8 @@ class CustomerBankAccountAdmin(admin.ModelAdmin):
     search_fields = ['account_number', 'ifsc_code', 'customer', 'bank', 'branch_name']
     ordering = ['account_number']
     list_per_page = settings.ADMIN_LIST_PER_PAGE
+
+@admin.register(AMC)
+class AMCAdmin(admin.ModelAdmin):
+    # Keep the default permissions
+    pass

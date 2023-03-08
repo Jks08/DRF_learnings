@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework.filters',
     'customer',
+    'core',
+    'kbapp',
 ]
 
 REST_FRAMEWORK = {
