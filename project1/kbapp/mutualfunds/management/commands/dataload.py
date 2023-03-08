@@ -10,7 +10,10 @@ class Command(BaseCommand):
 
     def load_data_to_amc(self, data):
         json_data = json.load(data)
-        self.stdout.write(f'JSON data: {json_data}')
+
+        if json_data['model']!= 'kbapp.amc':
+            self.stdout.write(self.style.ERROR(f'Error: Model name is not correct'))
+            return False
 
         rta_amc_code = json_data['fields']['rta_amc_code']
         # self.stdout.write(f'rta_amc_code: {rta_amc_code}')
@@ -35,8 +38,9 @@ class Command(BaseCommand):
             self.stdout.write(self.style.ERROR(f'Error: {e}'))
 
         # Show the updated databse records
+        self.stdout.write((f'AMC database records:'))
         for obj in AMC.objects.all():
-            self.stdout.write(f'All AMCs: {obj.name}')
+            self.stdout.write(f'{obj.name}')
         # pass
 
     def handle(self, *args, **kwargs):
