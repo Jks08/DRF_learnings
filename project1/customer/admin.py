@@ -28,7 +28,7 @@ class NoPermissionAdmin(admin.ModelAdmin):
         return [f.name for f in self.model._meta.fields]
     
 
-class CustomerAdmin(NoPermissionAdmin):
+class CustomerAdmin(admin.ModelAdmin):
     model = Customer
     ordering = ['email']
     list_display = ['id','email', 'first_name', 'middle_name', 'last_name', 'pan_no', 'is_active']
