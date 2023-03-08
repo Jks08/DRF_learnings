@@ -15,6 +15,7 @@ class AMC(BaseField):
     is_being_sold = models.BooleanField(null=True, default=False)
     f_amc_code = models.CharField(max_length=3, blank=True, null=True)
     # amc_logo = models.ImageField(upload_to='amc_logos', blank=True, null=True)
+    amc_logo = models.CharField(max_length=200, blank=True, null=True)
     amc_website_url = models.URLField(blank=True, null=True)
     scheme_information_document_url = models.URLField(blank=True, null=True)
     nominee_url = models.URLField(blank=True, null=True)
