@@ -63,7 +63,3 @@ class CustomerBankAccountAdmin(admin.ModelAdmin):
     search_fields = ['account_number', 'ifsc_code', 'customer', 'bank', 'branch_name']
     ordering = ['account_number']
     list_per_page = settings.ADMIN_LIST_PER_PAGE
-
-@admin.register(AMC)
-class AMCAdmin(admin.ModelAdmin):
-    pass
