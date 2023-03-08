@@ -12,7 +12,8 @@ class Command(BaseCommand):
         json_data = json.load(data)
 
         if json_data['model']!= 'kbapp.amc':
-            self.stdout.write(self.style.ERROR(f'Error: Model name is not correct'))
+            model_name = json_data['model'].split('.')[1]
+            self.stdout.write(self.style.ERROR(f'Error: Model of name "{model_name}" does not exist'))
             return False
 
         rta_amc_code = json_data['fields']['rta_amc_code']
