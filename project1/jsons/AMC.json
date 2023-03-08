@@ -1,0 +1,9 @@
+{
+    "model": "kbapp.amc",
+    "fields": {
+        "is_active": true,
+        "name": "Bajaj Finserv Asset Management Limited",
+        "is_being_sold": true,
+        "rta_amc_code": "189"
+    }
+}
