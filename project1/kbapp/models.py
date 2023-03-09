@@ -43,4 +43,14 @@ class AMC(BaseField):
     class Meta:
         db_table = 'kbapp_amc'
 
+class AMCFund(BaseField):
+    rta_fund_code = models.CharField(max_length=10, unique=True, default="NULL")
+    name = models.CharField(max_length=255)
+    fund_type = models.CharField(max_length=100, null=True, blank=True)
+    fund_category = models.CharField(max_length=100, null=True, blank=True)
+    fund_sub_type = models.CharField(max_length=100, null=True, blank=True)
+    risk_factor = models.CharField(max_length=20, null=True, blank=True)
+
+    def __str__(self):
+        return str(self.name) + str(self.rta_fund_code)
     
