@@ -13,3 +13,5 @@ migrations/
 *.8
 *.9
 
+fund_scheme.json
+all_schemes.json
