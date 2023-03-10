@@ -75,3 +75,21 @@ class AMCFund(BaseField):
     def __str__(self):
         return str(self.name) + str(self.rta_fund_code)
     
+    @classmethod
+    def store_fund_data(cls, payload, data):
+        payload = payload
+        for fund in data['data']['funds']:
+            obj = cls.objects.filter(rta_fund_code=fund['scheme']).first()
+            if obj:
+                for key, val in payload.items():
+                    setattr(obj, key, fund[val])
+                obj.modified_by = "Admin User"
+                obj.modified = datetime.datetime.now()
+                obj.save()
+            else:
+                obj_new = cls()
+                for key, val in payload.items():
+                    setattr(obj_new, key, fund[val])
+                obj_new.created_by = "Admin User"
+                obj_new.created = datetime.datetime.now()
+                obj_new.save()

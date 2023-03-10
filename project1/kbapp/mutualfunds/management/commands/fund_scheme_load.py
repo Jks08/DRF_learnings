@@ -99,28 +99,10 @@ def fund_payload():
     }
     return payload
 
-def store_fund_data(data):
-    payload = fund_payload()
-    for fund in data['data']['funds']:
-        # print(f"{fund['scheme']} | {fund['schdesc']} | {fund['category']} | {fund['subcategory']} | {fund['risktype']}")
-        obj = AMCFund.objects.filter(rta_fund_code=fund['scheme']).first()
-        if obj:
-            for key, value in payload.items():
-                setattr(obj, key, fund[value])
-            obj.modified_by = "Admin User"
-            obj.modified = datetime.datetime.now()
-            obj.save()
-        else:
-            obj_new = AMCFund(**payload)
-            for key, value in payload.items():
-                setattr(obj_new, key, fund[value])
-            obj_new.created_by = "Admin User"
-            obj_new.created = datetime.datetime.now()
-            obj_new.save()
-
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
         url = "https://clientwebsitesuat3.kfintech.com/bajaj/api/v1/masterData/getSchemes"
         data = get_data_from_api(url)
-        store_fund_data(data)
+        payload_fund = fund_payload()
+        AMCFund.store_fund_data(payload_fund, data)
