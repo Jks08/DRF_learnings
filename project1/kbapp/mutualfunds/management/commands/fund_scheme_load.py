@@ -123,4 +123,4 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         url = "https://clientwebsitesuat3.kfintech.com/bajaj/api/v1/masterData/getSchemes"
         data = get_data_from_api(url)
-        print(store_fund_data(data))
+        store_fund_data(data)
