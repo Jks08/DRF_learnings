@@ -44,6 +44,7 @@ class AMC(BaseField):
         db_table = 'kbapp_amc'
 
 class AMCFund(BaseField):
+    AMC = models.ForeignKey(AMC, on_delete=models.CASCADE, default=1)
     amcfund_id = models.AutoField(primary_key=True)
     rta_fund_code = models.CharField(max_length=10, unique=True, default="NULL")
     name = models.CharField(max_length=255)
