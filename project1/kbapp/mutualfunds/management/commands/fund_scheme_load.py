@@ -99,6 +99,11 @@ def fund_payload():
     }
     return payload
 
+def scheme_payload():
+    plans_list = ['direct', 'regular']
+    options_list = ['growth', 'payout', 'reinvestment']
+    pass
+
 
 class Command(BaseCommand):
     def handle(self, *args, **options):

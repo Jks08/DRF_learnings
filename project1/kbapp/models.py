@@ -94,3 +94,63 @@ class AMCFund(BaseField):
                 obj_new.created_by = "Admin User"
                 obj_new.created = datetime.datetime.now()
                 obj_new.save()
+
+class AMCFundScheme(BaseField):
+    SWITCH_ALLOWED_CHOICE = (('Y', 'Yes'), ('N', 'No'))
+    SWP_ALLOWED_CHOICE = (('Y', 'Yes'), ('N', 'No'))
+    STP_ALLOWED_CHOICE = (('Y', 'Yes'), ('N', 'No'))
+    SIP_ALLOWED_CHOICE = (('Y', 'Yes'), ('N', 'No'))
+    NFO_CHOICES = (('Y', 'Yes'), ('N', 'No'))
+
+    AMCFund = models.ForeignKey(AMCFund, on_delete=models.CASCADE)
+    amcfundscheme_id = models.AutoField(primary_key=True)
+    name = models.CharField(default='', max_length=200, unique=True)
+    rta_amc_code = models.CharField(max_length=200, null=True, blank=True)
+    rta_scheme_code = models.CharField(max_length=30,null=True,blank=True, unique=True)
+    rta_rta_scheme_code = models.CharField(max_length=20, null=True, blank=True)
+    rta_amc_scheme_code = models.CharField(max_length=20, null=True, blank=True)
+    rta_plan_code = models.CharField(max_length=20, null=True, blank=True)
+    rta_scheme_plan = models.CharField(max_length=25, null=True, blank=True)
+    rta_option_code = models.CharField(max_length=20, null=True, blank=True)
+    rta_scheme_option = models.CharField(max_length=50, blank=True, null=True)
+    rta_scheme_active_flag = models.CharField(max_length=1, null=True, blank=True)
+    nfo_start_date = models.DateField(null=True, blank=True)
+    nfo_end_date = models.DateField(default=datetime.date(2099, 1, 1))
+    rta_purchase_cutoff_time = models.TimeField(null=True, blank=True)
+    rta_redemption_cutoff_time = models.TimeField(null=True, blank=True)
+    rta_purchase_allowed = models.CharField(max_length=2, null=True, blank=True)
+    is_being_sold = models.BooleanField(null=True, default=False)
+    rta_redemption_allowed = models.CharField(max_length=2, null=True, blank=True)
+    rta_switch_flag = models.CharField(max_length=1,choices=SWITCH_ALLOWED_CHOICE, default='N')
+    rta_swp_flag = models.CharField(max_length=1, choices=SWP_ALLOWED_CHOICE, default='N')
+    rta_stp_flag = models.CharField(max_length=1, choices=STP_ALLOWED_CHOICE, default='N')
+    rta_sip_flag = models.CharField(max_length=1, choices=SIP_ALLOWED_CHOICE, default='N')
+    rta_isin = models.CharField(max_length=15, null=True, blank=True)
+    nfo_face_value = models.IntegerField(default=0)
+    amfi_scheme_code = models.IntegerField(default=0, blank=True, null=True)
+    nfo_reopening_date = models.DateField(blank=True, null=True)
+    is_nfo = models.CharField(max_length=1, choices=NFO_CHOICES, null=True, blank=True)
+    rta_minimum_purchase_amount = models.IntegerField(null=True, blank=True)
+    rta_additional_purchase_amount_multiple = models.FloatField(max_length=20, null=True, blank=True)
+    rta_redemption_amount_minimum = models.FloatField(max_length=20, null=True, blank=True)
+
+    is_direct_fund = models.BooleanField(null=True, default=False)
+    is_regular_fund = models.BooleanField(null=True, default=False)
+    is_growth_fund = models.BooleanField(null=True, default=False)
+    is_div_payout_fund = models.BooleanField(null=True, default=False)
+    is_div_reinvestment_fund = models.BooleanField(null=True, default=False)
+
+    rta_scheme_planoptiondesc = models.CharField(max_length=100, blank=True, null=True)
+
+    rta_stp_reg_in = models.CharField(max_length=10, null=True, blank=True)
+    rta_stp_reg_out = models.CharField(max_length=10, null=True, blank=True)
+
+    rta_scheme_name = models.CharField(max_length=500, null=True, blank=True) #desc of json
+
+    rta_lock_in_period_flag = models.CharField(max_length=6, null=True, blank=True)
+    rta_lock_in_period = models.CharField(max_length=15, null=True, blank=True)
+
+    rta_scheme_type = models.CharField(max_length=25, null=True, blank=True)
+    
+    def __str__(self):
+        return str(self.name)
