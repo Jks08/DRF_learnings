@@ -2,6 +2,8 @@ from django.core.management.base import BaseCommand
 import requests
 from kbapp.models import AMCFund, AMCFundScheme
 import datetime
+import warnings
+warnings.filterwarnings("ignore")
 
 
 def get_data_from_api(url):
@@ -104,6 +106,8 @@ def store_fund_scheme_data(data):
             scheme_payload = load_scheme_payload(scheme, fund_obj)
             if not AMCFundScheme.objects.filter(name=scheme['desc']).exists():
                 AMCFundScheme.objects.create(**scheme_payload)
+            else:
+                AMCFundScheme.objects.filter(name=scheme['desc']).update(**scheme_payload)
                 
 
 
