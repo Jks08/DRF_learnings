@@ -1,5 +1,6 @@
 from django.contrib import admin
-from kbapp.models import AMC, AMCFund, AMCFundScheme
+from kbapp.models import AMC
+from kbapp.models import AMCFund, AMCFundScheme
 
 # Register your models here.
 
