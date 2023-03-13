@@ -1,5 +1,5 @@
 from django.contrib import admin
-from kbapp.models import AMC, AMCFund
+from kbapp.models import AMC, AMCFund, AMCFundScheme
 
 # Register your models here.
 
@@ -13,3 +13,9 @@ class AMCFundAdmin(admin.ModelAdmin):
     list_display = [field.name for field in AMCFund._meta.fields]
 
 admin.site.register(AMCFund, AMCFundAdmin)
+
+class AMCFundSchemeAdmin(admin.ModelAdmin):
+    model = AMCFundScheme
+    list_display = [field.name for field in AMCFundScheme._meta.fields]
+
+admin.site.register(AMCFundScheme, AMCFundSchemeAdmin)
