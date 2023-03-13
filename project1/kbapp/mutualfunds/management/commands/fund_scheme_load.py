@@ -100,14 +100,11 @@ def load_scheme_payload(scheme, fund_obj):
 
 def store_fund_scheme_data(data):
     for fund in data['data']['funds']:
-        fund_obj = AMCFund.objects.get(rta_fund_code=fund['scheme'])
+        fund_obj = AMCFundScheme.get_fund_obj(fund)
 
         for scheme in fund['schemes']:
             scheme_payload = load_scheme_payload(scheme, fund_obj)
-            if not AMCFundScheme.objects.filter(name=scheme['desc']).exists():
-                AMCFundScheme.objects.create(**scheme_payload)
-            else:
-                AMCFundScheme.objects.filter(name=scheme['desc']).update(**scheme_payload)
+            AMCFundScheme.save_scheme(scheme,scheme_payload)
                 
 
 

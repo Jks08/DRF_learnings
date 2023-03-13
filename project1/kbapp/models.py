@@ -154,3 +154,15 @@ class AMCFundScheme(BaseField):
     
     def __str__(self):
         return str(self.name)
+    
+    @classmethod
+    def get_fund_obj(self, fund):
+        fund_obj = AMCFund.objects.get(rta_fund_code=fund['scheme'])
+        return fund_obj
+    
+    @classmethod
+    def save_scheme(self, scheme, scheme_payload):
+        if not AMCFundScheme.objects.filter(name=scheme['desc']).exists():
+            AMCFundScheme.objects.create(**scheme_payload)
+
+    
