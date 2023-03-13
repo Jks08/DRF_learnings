@@ -1,86 +1,7 @@
 from django.core.management.base import BaseCommand
 import requests
-from kbapp.models import AMCFund
+from kbapp.models import AMCFund, AMCFundScheme
 import datetime
-
-# Our data coming from the api looks like this:
-# {
-# "statusCode": "0",
-# "message": "success",
-# "data": {
-#     "fund": "189",
-#     "fundname": "Bajaj MUTUAL FUND",
-#     "funds": [
-#         {
-#             "scheme": "IS",
-#             "schdesc": "Bajaj Regular Saver Fund",
-#             "category": "DEBT FUND",
-#             "subcategory": "DEBT",
-#             "risktype": "MODERATELY HIGH",
-#             "schemes":[....]
-#         },
-#         {
-#             "scheme": "IS",
-
-# Now, we work on the schemes list.
-# The schemes list contains data of all the scehemes.
-# It looks like this:
-# "schemes": [
-#                     {
-#                         "code": null,
-#                         "fundname": "Bajaj MUTUAL FUND",
-#                         "schemeid": "ISQDD",
-#                         "scheme": "IS",
-#                         "schdesc": "Bajaj Regular Saver Fund",
-#                         "plan": "QD",
-#                         "plandesc": "Regular Quarterly IDCW",
-#                         "option": "D",
-#                         "optiondesc": "Payout",
-#                         "active": "Y",
-#                         "execdt": "2010-07-16T00:00:00.000Z",
-#                         "opendate": "2010-05-24T00:00:00.000Z",
-#                         "nav_sp": 4,
-#                         "desc": "Bajaj Regular Saver Fund Regular Quarterly IDCW Payout",
-#                         "prodcode": "XS71",
-#                         "nature": "Open",
-#                         "closedate": "2010-06-21T00:00:00.000Z",
-#                         "purcuttime": 1500,
-#                         "redcuttime": 1500,
-#                         "swicuttime": 1500,
-#                         "maturitydt": "9999-03-06T00:00:00.000Z",
-#                         "purallow": "Y",
-#                         "redallow": "Y",
-#                         "swiallow": "Y",
-#                         "swoallow": "Y",
-#                         "latiallow": "Y",
-#                         "latoallow": "Y",
-#                         "stpiallow": "Y",
-#                         "stpoallow": "Y",
-#                         "sipallow": "Y",
-#                         "swdallow": "Y",
-#                         "mcrid": "A3",
-#                         "sweepinallow": "Y",
-#                         "sweepoutallow": "Y",
-#                         "allotmentdt": "2010-07-16T00:00:00.000Z",
-#                         "isin": "INF846K01701",
-#                         "shortdesc": "AXF REG SAVER FUND  DIVD(QLY)",
-#                         "nfoallow": null,
-#                         "facevalue": 10,
-#                         "amficode": "112925",
-#                         "reopendate": "2010-05-24T00:00:00.000Z",
-#                         "nfoidentifier": "",
-#                         "new_minamt": 5000,
-#                         "add_minamt": null,
-#                         "red_minamt": 0,
-#                         "sip_minamt": null,
-#                         "swp_minamt": 1000,
-#                         "stp_minamt": 1000,
-#                         "switch_minamt": 0
-#                     },
-#                     {
-
-# and then other schemes.
-# This goes on till the end of the list. After that we have the next fund. So, we need to iterate over the funds list and then the schemes list.
 
 
 def get_data_from_api(url):
@@ -99,10 +20,86 @@ def fund_payload():
     }
     return payload
 
-def scheme_payload():
-    plans_list = ['direct', 'regular']
-    options_list = ['growth', 'payout', 'reinvestment']
-    pass
+def get_cutoff_time(param):
+    str_time = str(param)
+    if len(str_time) == 4:
+            cutoff_time_hour = int(str_time[:2])
+            cutoff_time_min = int(str_time[2:])
+            cut_off_time = datetime.time(cutoff_time_hour, cutoff_time_min)
+    else:
+        cut_off_time = ''
+
+    return cut_off_time
+
+def store_fund_scheme_data( data):
+    for fund in data['data']['funds']:
+        fund_obj = AMCFund.objects.get(rta_fund_code=fund['scheme'])
+        for scheme in fund['schemes']:
+            is_direct_fund = 'direct' if 'direct' in scheme['plandesc'] else False
+            is_regular_fund = 'regular' if 'regular' in scheme['plandesc'] else False
+            is_growth_fund = 'growth' if 'growth' in scheme['optiondesc'] else False
+            is_div_payout_fund = 'payout' if 'payout' in scheme['optiondesc'] else False
+            is_div_reinvestment_fund = 'reinvestment' if 'reinvestment' in scheme['optiondesc'] else False
+
+            planoptiondesc = {is_direct_fund and is_growth_fund: "Direct & Growth",is_regular_fund and is_growth_fund: "Regular & Growth", is_direct_fund and is_div_reinvestment_fund: "Direct & IDCW Reinvestment", is_regular_fund and is_div_reinvestment_fund: "Regular & IDCW Reinvestment", is_direct_fund and is_div_payout_fund: "Direct & IDCW Payout", is_regular_fund and is_div_payout_fund: "Regular & IDCW Payout"}
+
+            scheme_payload = {
+                "AMCFund": fund_obj,
+                "name": scheme['desc'],
+                "amfi_scheme_code": scheme['amficode'] if scheme['amficode'] else 0,
+                "is_active": True if scheme['active'] == "Y" else False,
+                
+                "is_being_sold": True if scheme['purallow'] == "Y" else False,
+                "is_direct_fund": is_direct_fund,
+                "is_regular_fund": is_regular_fund,
+                "is_growth_fund": is_growth_fund,
+                "is_div_payout_fund": is_div_payout_fund,
+                "is_div_reinvestment_fund": is_div_reinvestment_fund,
+                "rta_scheme_planoptiondesc": planoptiondesc.get(True, ""),"rta_scheme_option": scheme.get("optiondesc"),
+                "rta_sip_flag": scheme['sipallow'],
+                "rta_stp_flag": scheme['stpoallow'],
+                "rta_swp_flag": scheme['stpiallow'],
+                "rta_switch_flag": "Y" if scheme['swiallow'] == 'Y' and scheme['swoallow'] == 'Y' else "N",
+                "rta_stp_reg_in": scheme['stpiallow'],
+                "rta_stp_reg_out": scheme['stpoallow'],
+
+                "rta_scheme_code": scheme['schemeid'],
+                "rta_rta_scheme_code": scheme['schemeid'],
+                "rta_amc_scheme_code": scheme['schemeid'],
+                "rta_isin": scheme['isin'],
+                "rta_amc_code": scheme['fundname'],
+                "rta_scheme_type": fund_obj.fund_category,
+                "rta_scheme_plan": scheme['plandesc'],
+                "rta_scheme_name": scheme['desc'],
+                "rta_scheme_active_flag": scheme['active'],
+                "rta_lock_in_period_flag": "N",
+                "rta_lock_in_period": 0,
+                "rta_plan_code": scheme['plan'],
+                "rta_option_code": scheme['option'],
+
+                "is_nfo": scheme['nfoidentifier'],
+                "nfo_face_value": scheme['facevalue'],
+                "nfo_start_date": datetime.datetime.fromisoformat(scheme['opendate'][:-1] + '+00.00').date(), 
+                "nfo_end_date": datetime.datetime.fromisoformat(scheme['closedate'][:-1] + '+00.00').date(), 
+                "nfo_reopening_date": datetime.datetime.fromisoformat(scheme['reopendate'][:-1] + '+00.00').date(),  
+
+                # Scheme Purchase Fields
+                "rta_purchase_allowed": scheme['purallow'],
+                "rta_minimum_purchase_amount": scheme['new_minamt'],
+                "rta_additional_purchase_amount_multiple": scheme['add_minamt'],
+                "rta_purchase_cutoff_time": get_cutoff_time(scheme['purcuttime']),  # Convert to datetime.time
+
+                # Scheme Redeem Fields
+                "rta_redemption_allowed": scheme['redallow'],
+                "rta_redemption_amount_minimum": scheme['red_minamt'],
+                "rta_redemption_cutoff_time": get_cutoff_time(scheme['redcuttime']),  # Convert to datetime.time
+                "modified_by": 'Admin',
+                "modified": datetime.datetime.now()
+
+            }
+            if not AMCFundScheme.objects.filter(name=scheme['desc']).exists():
+                AMCFundScheme.objects.create(**scheme_payload)
+                
 
 
 class Command(BaseCommand):
@@ -111,3 +108,4 @@ class Command(BaseCommand):
         data = get_data_from_api(url)
         payload_fund = fund_payload()
         AMCFund.store_fund_data(payload_fund, data)
+        store_fund_scheme_data(data)
