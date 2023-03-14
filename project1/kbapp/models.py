@@ -162,7 +162,16 @@ class AMCFundScheme(BaseField):
     
     @classmethod
     def save_scheme(self, scheme, scheme_payload):
-        if not AMCFundScheme.objects.filter(name=scheme['desc']).exists():
-            AMCFundScheme.objects.create(**scheme_payload)
+        try:
+            if not AMCFundScheme.objects.filter(rta_scheme_code=scheme['schemeid']).exists(): 
+                AMCFundScheme.objects.create(**scheme_payload)
+            else:
+                obj = AMCFundScheme.objects.get(rta_scheme_code=scheme['schemeid'])
+                for key, val in scheme_payload.items():
+                    setattr(obj, key, scheme[val])
+                obj.save()
 
-    
+        except Exception as e:
+            # print(f"Error encountered while saving scheme {scheme['schemeid']}: {e}")
+            # print("Skipping this entry and moving to next one")
+            pass
