@@ -109,7 +109,7 @@ def load_scheme_payload(scheme, fund_obj):
 
 def store_fund_scheme_data(data):
     for fund in data['data']['funds']:
-        fund_obj = AMCFundScheme.get_fund_obj(fund)
+        fund_obj = AMCFund.get_fund_obj(fund['scheme'])
 
         for scheme in fund['schemes']:
             scheme_payload = load_scheme_payload(scheme, fund_obj)

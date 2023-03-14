@@ -95,6 +95,10 @@ class AMCFund(BaseField):
                 obj_new.created = datetime.datetime.now()
                 obj_new.save()
 
+    @classmethod
+    def get_fund_obj(self, fund):
+        return self.objects.filter(rta_fund_code=fund).first()
+
 class AMCFundScheme(BaseField):
     SWITCH_ALLOWED_CHOICE = (('Y', 'Yes'), ('N', 'No'))
     SWP_ALLOWED_CHOICE = (('Y', 'Yes'), ('N', 'No'))
@@ -156,11 +160,6 @@ class AMCFundScheme(BaseField):
         return str(self.name)
     
     @classmethod
-    def get_fund_obj(self, fund):
-        fund_obj = AMCFund.objects.get(rta_fund_code=fund['scheme'])
-        return fund_obj
-    
-    @classmethod
     def save_scheme(self, scheme, scheme_payload):
         try:
             if not AMCFundScheme.objects.filter(rta_scheme_code=scheme['schemeid']).exists(): 
@@ -172,6 +171,6 @@ class AMCFundScheme(BaseField):
                 obj.save()
 
         except Exception as e:
-            # print(f"Error encountered while saving scheme {scheme['schemeid']}: {e}")
-            # print("Skipping this entry and moving to next one")
+            print(f"\nError encountered while saving scheme {scheme['schemeid']}: {e}")
+            print("Skipping this entry and moving to next one\n")
             pass
