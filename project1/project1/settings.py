@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework.filters',
     'customer',
+    'base',
+    'kbapp',
+    'kbapp.mutualfunds',
 ]
 
 REST_FRAMEWORK = {
@@ -58,6 +61,8 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
     ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
 }
 
 MIDDLEWARE = [
@@ -138,6 +143,8 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+MAX_ACCOUNTS_PER_CUSTOMER = 4
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
@@ -148,6 +155,9 @@ AUTH_USER_MODEL_USERNAME_FIELD = None
 AUTH_EMAIL_REQUIRED = True
 AUTH_USERNAME_REQUIRED = False
 AUTH_AUTHENTICATION_METHOD = 'email'
+
+# Implement Pagination for Admin
+ADMIN_LIST_PER_PAGE = 15
 
 # Configure logging
 

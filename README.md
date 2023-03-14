@@ -11,6 +11,7 @@ The main project files and directories are in [project1](https://github.com/Jks0
 - [X] Bank Logo should be fetch in response only.
 - [X] One customer can have only one account in one bank
 - [X] If data is sent to create a bank account via POST and it exactly matches data present in a bank account with is_active=False, make it the active bank account and deactivate others.
+- [X] Custom Management Commands
 
 # Some Pointers to Note
 
@@ -57,4 +58,21 @@ The main project files and directories are in [project1](https://github.com/Jks0
 
    ```
 5. GET method on this url http://127.0.0.1:8000/customerdata/bankaccount/ will output active bank account for authorized user.
-7. PUT or PATCH on http://127.0.0.1:8000/customerdata/bankaccount/id will change the following details only: ifsc_code, branch_name, name_as_per_bank_record and account_type.
+6. PUT or PATCH on http://127.0.0.1:8000/customerdata/bankaccount/id will change the following details only: ifsc_code, branch_name, name_as_per_bank_record and account_type.
+
+# Custom Management Commands Implemented
+
+- python3 manage.py activateuser:
+
+  - Usage: python3 manage.py activateuser [-h] [--version] [-v {0,1,2,3}] [--settings SETTINGS] [--pythonpath PYTHONPATH] [--traceback] [--no-color]
+    [--force-color] [--skip-checks]
+    action id
+  - Description: Activate or deactivate a user
+  - Positional Arguments:
+    action
+    id
+- python3 manage.py loadbankmasterdata:
+
+  - Usage: manage.py loadbankmasterdata [-h] [--version] [-v {0,1,2,3}] [--settings SETTINGS] [--pythonpath PYTHONPATH] [--traceback]
+    [--no-color] [--force-color] [--skip-checks]
+  - Description: Load bank master data to table BankMaster

@@ -1,6 +1,9 @@
 from django.conf import settings
 from rest_framework import serializers
 from customer.models import Customer, BankMaster, CustomerBankAccount
+from django.conf import settings
+
+
 from typing import Dict
 import os
 
@@ -37,41 +40,38 @@ class CustomerBankAccountSerializer(serializers.ModelSerializer):
         if logo:
             representation['bank_logo'] = os.path.join(settings.MEDIA_ROOT, logo.url)
         return representation
+        
+    def validate_number_of_accounts(self, attrs: Dict[str, any]) -> Dict[str, any]:
+        if CustomerBankAccount.objects.filter(customer=attrs['customer']).count() >= settings.MAX_ACCOUNTS_PER_CUSTOMER:
+            raise serializers.ValidationError(f"You can only add max of {settings.MAX_ACCOUNTS_PER_CUSTOMER} accounts.")
+        return attrs
+    
+    def validate_set_current_account_as_active(self, attrs: Dict[str, any]) -> Dict[str, any]:
+        if CustomerBankAccount.objects.filter(customer=attrs['customer'], is_active=True):
+            CustomerBankAccount.objects.filter(customer=attrs['customer']).update(is_active=False)
+        attrs['is_active'] = True
+        return attrs
+    
+    def validate_account_number_and_ifsc_code(self, attrs: Dict[str, any]) -> Dict[str, any]:
+        if CustomerBankAccount.objects.filter(account_number=attrs['account_number'], ifsc_code=attrs['ifsc_code']).count() >= 1:
+            raise serializers.ValidationError("Account number and IFSC code already exists.")
+        return attrs
 
     def validate(self, attrs: Dict[str, any]) -> Dict[str, any]:
         if not self.instance:
             attrs['customer'] = self.context['request'].user
+            account_number = attrs.get('account_number')
+            ifsc_code = attrs.get('ifsc_code')
 
-            existing_accounts  = CustomerBankAccount.objects.filter(
-                customer = attrs['customer'],
-                ifsc_code = attrs['ifsc_code'],
-                account_number = attrs['account_number'],
-                bank = attrs['bank'],
-                branch_name = attrs['branch_name'],
-                name_as_per_bank_record = attrs['name_as_per_bank_record'],
-                account_type = attrs['account_type']
-            )
-            if existing_accounts.exists():
-                existing_account = existing_accounts.first()
-                CustomerBankAccount.objects.filter(customer=attrs['customer'], is_active=True).update(is_active=False)
-                existing_account.is_active = True
-                existing_account.save()
-                attrs['id'] = existing_account.id
-                attrs['is_active'] = True
-                return attrs
+            existing_customer = CustomerBankAccount.activate_existing_account(account_number, ifsc_code, attrs['customer'])
+            if existing_customer:
+                self.instance = existing_customer
 
-            if CustomerBankAccount.objects.filter(customer=attrs['customer']).count() >= 4:
-                raise serializers.ValidationError("You can only add maximum 4 accounts.")
-        
-            if CustomerBankAccount.objects.filter(customer=attrs['customer'], bank=attrs['bank']).count() >= 1:
-                raise serializers.ValidationError("You can only add one account per bank.")
-            
-            if CustomerBankAccount.objects.filter(customer=attrs['customer'], is_active=True):
-                CustomerBankAccount.objects.filter(customer=attrs['customer']).update(is_active=False)
-            attrs['is_active'] = True
+            else:
+                self.validate_number_of_accounts(attrs)
+                self.validate_set_current_account_as_active(attrs)
+                self.validate_account_number_and_ifsc_code(attrs)
 
-            if CustomerBankAccount.objects.filter(account_number=attrs['account_number'], ifsc_code=attrs['ifsc_code']).count() >= 1:
-                raise serializers.ValidationError("Account number and IFSC code already exists.")
         return super().validate(attrs)
     
     def update(self, instance: CustomerBankAccount, validated_data: Dict[str, any]) -> CustomerBankAccount:

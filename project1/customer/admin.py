@@ -1,8 +1,10 @@
 from django.contrib import admin
-from django.forms import ModelForm
 from django.http.request import HttpRequest
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from customer.models import Customer, CustomerBankAccount, BankMaster
+from kbapp.models import AMC
+
+from django.conf import settings
 from typing import List
 
 # Register your models here.
@@ -28,7 +30,7 @@ class NoPermissionAdmin(admin.ModelAdmin):
         return [f.name for f in self.model._meta.fields]
     
 
-class CustomerAdmin(NoPermissionAdmin):
+class CustomerAdmin(admin.ModelAdmin):
     model = Customer
     ordering = ['email']
     list_display = ['id','email', 'first_name', 'middle_name', 'last_name', 'pan_no', 'is_active']
@@ -44,6 +46,7 @@ class CustomerAdmin(NoPermissionAdmin):
             'fields': ('email', 'password1', 'password2', 'first_name', 'middle_name', 'last_name', 'pan_no', 'is_active', 'is_staff')}
         ),
     )
+    list_per_page = settings.ADMIN_LIST_PER_PAGE
 
 admin.site.register(Customer, CustomerAdmin)
 
@@ -52,23 +55,11 @@ class BankMasterAdmin(admin.ModelAdmin):
     list_display = ['bank_id', 'bank_name', 'bank_website', 'bank_logo','bank_number']
     search_fields = ['bank_id', 'bank_name', 'bank_website', 'bank_number']
     ordering = ['bank_id']
+    list_per_page = settings.ADMIN_LIST_PER_PAGE
 
 @admin.register(CustomerBankAccount)
-class CustomerBankAccountAdmin(NoPermissionAdmin):
+class CustomerBankAccountAdmin(admin.ModelAdmin):
     list_display = ['id','account_number', 'ifsc_code', 'account_number_ifsc_code', 'customer', 'bank', 'is_active', 'branch_name', 'name_as_per_bank_record', 'account_type', 'verification_status']
     search_fields = ['account_number', 'ifsc_code', 'customer', 'bank', 'branch_name']
     ordering = ['account_number']
-
-    def save_model(self, request: HttpRequest, obj, form, change: bool) -> None:
-        if not change:  
-            if CustomerBankAccount.objects.filter(customer=obj.customer).count() >= 4:
-                raise Exception("You can only add maximum 4 accounts.")
-            if CustomerBankAccount.objects.filter(customer=obj.customer, is_active=True).count() >= 1 and obj.is_active:
-                raise Exception("You can only have one active account.")
-            
-        if change and obj.is_active:
-            if CustomerBankAccount.objects.filter(customer=obj.customer, is_active=True).exclude(id=obj.id).count() >= 1:
-                raise Exception("You can only have one active account.")
-        super().save_model(request, obj, form, change)
-        pass
-
+    list_per_page = settings.ADMIN_LIST_PER_PAGE

@@ -1,7 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from base.models import BaseField
 from rest_framework.authtoken.models import Token
-from django.urls import reverse
+from django.db import transaction, IntegrityError
+from rest_framework import serializers
 
 # Create your models here.
 
@@ -20,7 +22,7 @@ class CustomerManager(BaseUserManager):
         extra_fields.setdefault('is_superuser', True)
         return self.create_user(email, password, **extra_fields)
 
-class Customer(AbstractBaseUser, PermissionsMixin):
+class Customer(AbstractBaseUser, BaseField, PermissionsMixin):
     first_name = models.CharField(max_length=50)
     middle_name = models.CharField(max_length=50, blank=True)
     last_name = models.CharField(max_length=50)
@@ -54,7 +56,7 @@ class Customer(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self) -> str:
         return self.first_name
 
-class BankMaster(models.Model):
+class BankMaster(BaseField):
     bank_id = models.AutoField(primary_key=True)
     bank_name = models.CharField(max_length=100)
     bank_website = models.URLField(max_length=200, blank=True, null=True)
@@ -64,7 +66,7 @@ class BankMaster(models.Model):
     def __str__(self) -> str:
         return self.bank_name
     
-class CustomerBankAccount(models.Model):
+class CustomerBankAccount(BaseField):
     account_number = models.CharField(max_length=20, primary_key=False)
     ifsc_code = models.CharField(max_length=11)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
@@ -76,8 +78,27 @@ class CustomerBankAccount(models.Model):
     verification_mode = models.CharField(choices=(('Manual', 'Manual'), ('OCR', 'OCR')), default='Manual', max_length=20) 
     verification_status = models.CharField(choices=(('Pending', 'Pending'), ('Verified', 'Verified'), ('Rejected', 'Rejected')), default='Pending', max_length=20)
     account_type = models.CharField(choices=(('Savings', 'Savings'), ('Current', 'Current')), max_length=20)
-    is_active = models.BooleanField(default=True)
+    # is_active = models.BooleanField(default=True)
 
+    
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['account_number', 'ifsc_code'], name='unique_account_number_ifsc_code')
+        ]
+
+    @classmethod
+    def activate_existing_account(cls, account_number, ifsc_code, customer):
+        existing_customer = cls.objects.filter(customer=customer) # Needed to make sure 1 can't edit others
+        existing_accounts = existing_customer.filter(account_number=account_number, ifsc_code=ifsc_code)
+        if existing_accounts:
+            existing_account = existing_accounts[0]
+            existing_account.is_active = True
+            existing_account.save()
+            cls.objects.filter(customer=customer).exclude(id=existing_account.id).update(is_active=False)
+            return existing_account
+        return None
+        
+    
     def __str__(self) -> str:
         return self.account_number
     
@@ -86,3 +107,7 @@ class CustomerBankAccount(models.Model):
             return self.ifsc_code +'_'+self.account_number
         except CustomerBankAccount.DoesNotExist:
             return None
+        
+
+
+        

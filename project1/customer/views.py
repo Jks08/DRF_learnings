@@ -61,24 +61,6 @@ class CustomerViewSet(viewsets.ModelViewSet):
         else:
             return self.request.user
 
-    def perform_create(self, serializer: CustomerSerializer) -> None:
-        serializer.save()
-
-    def perform_update(self, serializer: CustomerSerializer) -> None:
-        serializer.save()
-
-    def perform_destroy(self, instance: Customer) -> None:
-        instance.delete()
-
-    def retrieve(self, request, *args, **kwargs) -> Response:
-        return super().retrieve(request, *args, **kwargs)
-
-    def update(self, request, *args, **kwargs) -> Response:
-        return super().update(request, *args, **kwargs)
-
-    def partial_update(self, request, *args, **kwargs) -> Response:
-        return super().partial_update(request, *args, **kwargs)
-
 
 class CustomerBankAccountViewSet(viewsets.ModelViewSet):
     queryset = CustomerBankAccount.objects.all()
@@ -90,14 +72,11 @@ class CustomerBankAccountViewSet(viewsets.ModelViewSet):
         if not self.request.user.is_authenticated:
             return Response({'error': 'You are not authenticated.'}, status=status.HTTP_401_UNAUTHORIZED)
         else:
-            try:
-                serializer = self.get_serializer(data=request.data)
-                serializer.is_valid(raise_exception=True)
-                self.perform_create(serializer)
-                headers = self.get_success_headers(serializer.data)
-                return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
-            except IntegrityError:
-                return Response({'Created': 'Bank account created.'}, status=status.HTTP_201_CREATED)
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            self.perform_create(serializer)
+            headers = self.get_success_headers(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
     
     def get_queryset(self) -> CustomerBankAccount:
         if self.request.user.is_authenticated:
@@ -113,8 +92,6 @@ class CustomerBankAccountViewSet(viewsets.ModelViewSet):
             serializer = self.get_serializer(instance, data=request.data, partial=True)
             serializer.is_valid(raise_exception=True)
             self.perform_update(serializer)
-            if getattr(instance, '_prefetched_objects_cache', None):
-                instance._prefetched_objects_cache = {}
             return Response(serializer.data)
         
 class BankMasterViewSet(viewsets.ModelViewSet):
