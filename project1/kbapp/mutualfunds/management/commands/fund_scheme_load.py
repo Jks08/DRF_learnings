@@ -36,11 +36,19 @@ def get_cutoff_time(param):
 def load_scheme_payload(scheme, fund_obj):
     is_direct_fund = 'direct' if 'direct' in scheme['plandesc'] else False
     is_regular_fund = 'regular' if 'regular' in scheme['plandesc'] else False
+
     is_growth_fund = 'growth' if 'growth' in scheme['optiondesc'] else False
     is_div_payout_fund = 'payout' if 'payout' in scheme['optiondesc'] else False
     is_div_reinvestment_fund = 'reinvestment' if 'reinvestment' in scheme['optiondesc'] else False
 
-    planoptiondesc = {is_direct_fund and is_growth_fund: "Direct & Growth",is_regular_fund and is_growth_fund: "Regular & Growth", is_direct_fund and is_div_reinvestment_fund: "Direct & IDCW Reinvestment", is_regular_fund and is_div_reinvestment_fund: "Regular & IDCW Reinvestment", is_direct_fund and is_div_payout_fund: "Direct & IDCW Payout", is_regular_fund and is_div_payout_fund: "Regular & IDCW Payout"}
+    planoptiondesc = {
+        is_direct_fund and is_growth_fund: "Direct & Growth",
+        is_regular_fund and is_growth_fund: "Regular & Growth", 
+        is_direct_fund and is_div_reinvestment_fund: "Direct & IDCW Reinvestment", 
+        is_regular_fund and is_div_reinvestment_fund: "Regular & IDCW Reinvestment", 
+        is_direct_fund and is_div_payout_fund: "Direct & IDCW Payout", 
+        is_regular_fund and is_div_payout_fund: "Regular & IDCW Payout"
+        }
 
     scheme_payload = {
         "AMCFund": fund_obj,
@@ -54,7 +62,8 @@ def load_scheme_payload(scheme, fund_obj):
         "is_growth_fund": is_growth_fund,
         "is_div_payout_fund": is_div_payout_fund,
         "is_div_reinvestment_fund": is_div_reinvestment_fund,
-        "rta_scheme_planoptiondesc": planoptiondesc.get(True, ""),"rta_scheme_option": scheme.get("optiondesc"),
+        "rta_scheme_planoptiondesc": planoptiondesc.get(True, ""),
+        "rta_scheme_option": scheme.get("optiondesc"),
         "rta_sip_flag": scheme['sipallow'],
         "rta_stp_flag": scheme['stpoallow'],
         "rta_swp_flag": scheme['stpiallow'],
