@@ -28,17 +28,33 @@ class BankMasterSerializer(serializers.ModelSerializer):
 
 class CustomerBankAccountSerializer(serializers.ModelSerializer):
     bank_logo = serializers.CharField(source='bank.bank_logo', read_only=True)
+    bank_name = serializers.CharField(source='bank.bank_name', read_only=True)
+    customer_first_name = serializers.CharField(source='customer.first_name', read_only=True)
+    customer_last_name = serializers.CharField(source='customer.last_name', read_only=True)
+    customer_email = serializers.CharField(source='customer.email', read_only=True)
 
     class Meta:
         model = CustomerBankAccount
-        fields = ['id',"account_number","ifsc_code", "customer", "bank", "cheque_image", "branch_name", "name_as_per_bank_record","account_type","is_active", "bank_logo", "verification_status"]
+        fields = ['created_by','id',"account_number","ifsc_code", "customer","customer_first_name","customer_last_name","customer_email", "name_as_per_bank_record","bank", 'bank_name',"bank_logo", "cheque_image", "branch_name", "account_type","is_active", "verification_status"]
 
     def to_representation(self, instance: CustomerBankAccount) -> Dict[str, any]:
         representation = super().to_representation(instance)
         bank = instance.bank
+        customer = instance.customer
         logo = bank.bank_logo
+
         if logo:
             representation['bank_logo'] = os.path.join(settings.MEDIA_ROOT, logo.url)
+
+        bank_name = bank.bank_name
+        representation['bank_name'] = bank_name
+
+        first_name = customer.first_name
+        last_name = customer.last_name
+        email = customer.email
+        representation['customer_first_name'] = first_name
+        representation['customer_last_name'] = last_name
+        representation['customer_email'] = email
         return representation
         
     def validate_number_of_accounts(self, attrs: Dict[str, any]) -> Dict[str, any]:

@@ -84,9 +84,17 @@ class CustomerBankAccountViewSet(viewsets.ModelViewSet):
         if not self.request.user.is_authenticated:
             return Response({'error': 'You are not authenticated.'}, status=status.HTTP_401_UNAUTHORIZED)
         else:
-            accdata = request.COOKIES.get('bank_account_data')
-            accdata = json.loads(accdata)
-            return Response(accdata)
+            try:
+                accdata = request.COOKIES.get('bank_account_data')
+                accdata = json.loads(accdata)
+                return Response(accdata)
+            except:
+                # serializer = self.get_serializer(self.customer_bank_account(), many=True)
+                # return Response(serializer.data)
+                return Response({'Your session has expired, please send a POST request again. (The cookie does not exist)'})
+            
+    def customer_bank_account(self) -> CustomerBankAccount:
+        return self.queryset.filter(customer=self.request.user, is_active = True)
         
     def update(self, request, *args, **kwargs) -> Response:
         if not self.request.user.is_authenticated:
