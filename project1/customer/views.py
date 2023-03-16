@@ -8,6 +8,7 @@ from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
 from django.db import IntegrityError
 from typing import List
+import json
 
 from customer.models import Customer, CustomerBankAccount, BankMaster
 from customer.serializers import CustomerSerializer, CustomerBankAccountSerializer, BankMasterSerializer
@@ -75,14 +76,17 @@ class CustomerBankAccountViewSet(viewsets.ModelViewSet):
             serializer = self.get_serializer(data=request.data)
             serializer.is_valid(raise_exception=True)
             self.perform_create(serializer)
-            headers = self.get_success_headers(serializer.data)
-            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
-    
-    def get_queryset(self) -> CustomerBankAccount:
-        if self.request.user.is_authenticated:
-            return CustomerBankAccount.objects.filter(customer=self.request.user, is_active=True)
+            response = Response(serializer.data, status=status.HTTP_201_CREATED)
+            response.set_cookie('bank_account_data', json.dumps(serializer.data))
+            return response
+
+    def list(self, request, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            return Response({'error': 'You are not authenticated.'}, status=status.HTTP_401_UNAUTHORIZED)
         else:
-            return CustomerBankAccount.objects.none()
+            accdata = request.COOKIES.get('bank_account_data')
+            accdata = json.loads(accdata)
+            return Response(accdata)
         
     def update(self, request, *args, **kwargs) -> Response:
         if not self.request.user.is_authenticated:
