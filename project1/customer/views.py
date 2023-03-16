@@ -9,6 +9,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from django.db import IntegrityError
 from typing import List
 import json
+import uuid
 
 from customer.models import Customer, CustomerBankAccount, BankMaster
 from customer.serializers import CustomerSerializer, CustomerBankAccountSerializer, BankMasterSerializer
@@ -77,7 +78,8 @@ class CustomerBankAccountViewSet(viewsets.ModelViewSet):
             serializer.is_valid(raise_exception=True)
             self.perform_create(serializer)
             response = Response(serializer.data, status=status.HTTP_201_CREATED)
-            response.set_cookie('bank_account_data', json.dumps(serializer.data))
+            token = Token.objects.get(user=self.request.user)
+            response.set_cookie('bank_account_data', json.dumps({'data':serializer.data, 'token_id': str(token)}))
             return response
 
     def list(self, request, *args, **kwargs):
@@ -87,7 +89,12 @@ class CustomerBankAccountViewSet(viewsets.ModelViewSet):
             try:
                 accdata = request.COOKIES.get('bank_account_data')
                 accdata = json.loads(accdata)
-                return Response(accdata)
+                token = str(Token.objects.get(user=self.request.user))
+                if str(token) != accdata['token_id']:
+                    response = Response({'Your session has expired, please send a POST request again. (The cookie does not exist)'})
+                    response.delete_cookie('bank_account_data')
+                    return response
+                return Response(accdata['data'])
             except:
                 # serializer = self.get_serializer(self.customer_bank_account(), many=True)
                 # return Response(serializer.data)
