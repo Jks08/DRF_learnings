@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate
 from rest_framework.decorators import renderer_classes
 from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
-from django.db import IntegrityError
+from rest_framework.authentication import SessionAuthentication
 from typing import List
 import json
 
@@ -16,11 +16,34 @@ from customer.filters import CustomerFilter, CustomerBankAccountFilter
 
 # Create your views here.
 
-class CustomAuthToken(APIView):
-    authentication_classes = []
-    permission_classes = [permissions.AllowAny]
+# class CustomAuthToken(APIView):
+#     authentication_classes = []
+#     permission_classes = [permissions.AllowAny]
 
-    def post(self, request, *args, **kwargs) -> Response:
+#     def post(self, request, *args, **kwargs) -> Response:
+#         email = request.data.get('email')
+#         password = request.data.get('password')
+#         user = authenticate(email=email, password=password)
+#         if user:
+#             token, created = Token.objects.get_or_create(user=user)
+#             serializer = CustomerSerializer(user)
+#             return Response({
+#                 'token': token.key,
+#                 # 'user': serializer.data
+#             })
+#         return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+    
+class CustomSessionAuthentication(SessionAuthentication):
+    def authenticate(self, request):
+        user = getattr(request._request, 'user', None)
+        if not user or not user.is_authenticated:
+            return None
+        return (user, None)
+    
+class CustomAuthToken(APIView):
+    authentication_classes = [CustomSessionAuthentication]
+    permission_classes = [permissions.AllowAny]
+    def post(self, request, *args, **kwargs):
         email = request.data.get('email')
         password = request.data.get('password')
         user = authenticate(email=email, password=password)
@@ -29,14 +52,14 @@ class CustomAuthToken(APIView):
             serializer = CustomerSerializer(user)
             return Response({
                 'token': token.key,
-                # 'user': serializer.data
+                'user': serializer.data
             })
         return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
 class CustomerViewSet(viewsets.ModelViewSet):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
-    authentication_classes = [authentication.TokenAuthentication]
+    authentication_classes = [authentication.SessionAuthentication]
     filter_backends = [filters.SearchFilter, filters.OrderingFilter, DjangoFilterBackend]   
     filterset_class = CustomerFilter
     search_fields = ['email', 'first_name', 'last_name', 'pan_no']
@@ -66,7 +89,7 @@ class CustomerViewSet(viewsets.ModelViewSet):
 class CustomerBankAccountViewSet(viewsets.ModelViewSet):
     queryset = CustomerBankAccount.objects.all()
     serializer_class = CustomerBankAccountSerializer
-    authentication_classes = [authentication.TokenAuthentication]
+    authentication_classes = [authentication.SessionAuthentication]
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def create(self, request, *args, **kwargs) -> Response:

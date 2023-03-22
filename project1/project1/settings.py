@@ -65,6 +65,8 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10
 }
 
+SECRET_KEY = "jishnuwashere"
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
