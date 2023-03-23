@@ -59,7 +59,7 @@ class CustomAuthToken(APIView):
 class CustomerViewSet(viewsets.ModelViewSet):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
-    authentication_classes = [authentication.SessionAuthentication]
+    authentication_classes = [authentication.TokenAuthentication]
     filter_backends = [filters.SearchFilter, filters.OrderingFilter, DjangoFilterBackend]   
     filterset_class = CustomerFilter
     search_fields = ['email', 'first_name', 'last_name', 'pan_no']
